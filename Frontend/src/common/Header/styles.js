@@ -4,7 +4,7 @@ import { Button } from "antd";
 
 export const HeaderSection = styled("header")`
     padding: 1rem 0.5rem;
-    background: #f8f9fa;
+    background: ${props => props.theme.gray};
     .ant-row-space-between {
         align-items: center;
         text-align: center;
