@@ -17,7 +17,10 @@ const LoginSignupButton = () => {
             shape="round"
             size="large"
             onClick={() => loginWithRedirect({
-                screen_hint: "signup"
+                screen_hint: "signup",
+                appState: {
+                    returnTo: 'dashboard'
+                }
             })}
         >
             Log in / Sign up

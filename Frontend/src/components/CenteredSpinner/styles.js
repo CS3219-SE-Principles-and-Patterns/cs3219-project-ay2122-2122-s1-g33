@@ -9,6 +9,6 @@ export const SpinnerWrapper = styled("div")`
 
 export const CustomSpinner = styled(Spin)`
     .ant-spin-dot-item {
-        background-color: black;
+        background-color: ${props => props.theme.dark};
     }
 `
