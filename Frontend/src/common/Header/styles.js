@@ -20,21 +20,20 @@ export const LogoContainer = styled(Link)`
 `;
 
 export const Logo = styled("div")`
-	color: black;
+	color: ${props => props.theme.dark};
 	font-size: 40px;
-	// line-height: 1.18;
 	font-weight: 600;
 	letter-spacing: -2px;
 `
 
 export const ButtonWrapper = styled(Button)`
-    color: #343a40;
-    border-color: #343a40;
+    color: ${props => props.theme.dark};;
+    border-color: ${props => props.theme.dark};;
     &:hover,
     &:active,
     &:focus {
         color: white;
         border-color: white;
-        background-color: #343a40;
+        background-color: ${props => props.theme.dark};;
     }
 `

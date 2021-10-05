@@ -6,15 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
+import { ThemeProvider } from 'styled-components';
+import theme from './Theme';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Router>
-			<Auth0ProviderWithHistory>
-				<App/>
-			</Auth0ProviderWithHistory>
-		</Router>
-	</React.StrictMode>,
+	<ThemeProvider theme={theme}>
+		<React.StrictMode>
+			<Router>
+				<Auth0ProviderWithHistory>
+					<App/>
+				</Auth0ProviderWithHistory>
+			</Router>
+		</React.StrictMode>
+	</ThemeProvider>,
 document.getElementById('root')
 );
 
