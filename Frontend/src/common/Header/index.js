@@ -1,25 +1,50 @@
-import { Row, Button } from "antd";
+import { Row } from "antd";
+import { useAuth0 } from "@auth0/auth0-react";
 import Container from "../Container";
 import {
     HeaderSection,
     LogoContainer,
     Logo,
-    LoginSignupButtonWrapper
+    ButtonWrapper
 } from "./styles";
 
 const LoginSignupButton = () => {
+    const { loginWithRedirect } = useAuth0();
+
     return (
-        <LoginSignupButtonWrapper 
+        <ButtonWrapper 
             type="ghost" 
             shape="round"
             size="large"
+            onClick={() => loginWithRedirect({
+                screen_hint: "signup"
+            })}
         >
             Log in / Sign up
-        </LoginSignupButtonWrapper>
+        </ButtonWrapper>
+    )
+}
+
+const LogoutButton = () => {
+    const { logout } = useAuth0();
+
+    return (
+        <ButtonWrapper 
+            type="ghost" 
+            shape="round"
+            size="large"
+            onClick={() => logout({
+                returnTo: window.location.origin
+            })}
+        >
+            Log out
+        </ButtonWrapper>
     )
 }
 
 const Header = () => {
+    const { isAuthenticated } = useAuth0();
+
     return (
         <HeaderSection>
             <Container>
@@ -28,7 +53,7 @@ const Header = () => {
 						<Logo>PeerProgram</Logo>
 					</LogoContainer>
 
-                    <LoginSignupButton/>
+                    {isAuthenticated ? <LogoutButton/> : <LoginSignupButton/>}
                 </Row>
             </Container>
         </HeaderSection>

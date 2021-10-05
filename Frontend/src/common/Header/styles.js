@@ -27,7 +27,7 @@ export const Logo = styled("div")`
 	letter-spacing: -2px;
 `
 
-export const LoginSignupButtonWrapper = styled(Button)`
+export const ButtonWrapper = styled(Button)`
     color: #343a40;
     border-color: #343a40;
     &:hover,
