@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import ProtectedRoute from "./auth/protected-route";
 import UserDashboardPage from "./pages/UserDashboardPage";
 import LoadingPage from "./pages/LoadingPage";
+import DocPage from "./pages/DocPage";
 
 const App = () => {
 	const { isAuthenticated, isLoading } = useAuth0();
@@ -20,6 +21,7 @@ const App = () => {
                     }
                 </Route>
                 <ProtectedRoute exact path="/dashboard" component={UserDashboardPage}/>
+                <Route path="/doc/:id" component={DocPage}/>
 			</Switch>
 		</>
 	);
