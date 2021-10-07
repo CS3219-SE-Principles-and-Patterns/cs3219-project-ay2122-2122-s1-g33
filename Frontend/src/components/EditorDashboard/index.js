@@ -11,7 +11,8 @@ const EditorDashboard = ({
     code,
     onCodeChange,
     showOutput,
-    onOutputClose
+    onOutputClose,
+    output
 }) => {
     const drawerStyle = {
         color: "white",
@@ -30,31 +31,16 @@ const EditorDashboard = ({
                     height="99%"
                 />
                 <StyledDrawer
-                    // title="Code Execution Output"
                     placement="bottom"
                     closable={true}
                     onClose={onOutputClose}
                     visible={showOutput}
                     getContainer={false}
                     drawerStyle={drawerStyle}
+                    headerStyle={{color: "white"}}
                     >
                     <Output>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
-                        output...
-                        <br/>
+                        <pre>{output}</pre>
                     </Output>
                 </StyledDrawer>
             </DrawWrapper>

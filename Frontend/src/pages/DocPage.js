@@ -4,18 +4,37 @@ import EditorDashboard from "../components/EditorDashboard";
 import Header from "../common/Header";
 import FullContainer from "../common/FullContainer";
 import Button from "../components/Button";
-import { PlayCircleFilled } from "@ant-design/icons";
+import { LoadingOutlined, PlayCircleFilled } from "@ant-design/icons";
 
 const DocPage = () => {
     const [code, setCode] = useState("# type your python code here");
     const [showOutput, setShowOutput] = useState(false);
+    const [output, setOutput] = useState("Compiling code...");
+    const [isExecuting, setIsExecuting] = useState(false);
+
+    const stubCallToCodeExecutor = () => {
+        console.log(`Executing code: ${code}`)
+        setTimeout(() => {
+            setIsExecuting(false);
+            setOutput("Hello World");
+        }, 3000);
+    }
 
     const handleCodeChange = (value, event) => {
         setCode(value);
     }
 
     const onExecuteCode = () => {
-        setShowOutput(!showOutput);
+        setShowOutput(true);
+        setIsExecuting(true);
+        setOutput("Compiling code...");
+        stubCallToCodeExecutor();
+    }
+
+    const onOutputClose = () => {
+        if(!isExecuting) {
+            setShowOutput(false);
+        }
     }
 
     return (
@@ -24,17 +43,19 @@ const DocPage = () => {
                 <Button
                     type="ghost" 
                     shape="round" 
-                    icon={<PlayCircleFilled />} 
+                    icon={isExecuting ? <LoadingOutlined/> : <PlayCircleFilled />} 
                     size="large"
-                    label="Execute"
+                    label={isExecuting ? "Executing" : "Execute"}
                     onClick={onExecuteCode}
+                    disabled={isExecuting}
                 />
             </Header>
             <EditorDashboard
                 code={code}
                 onCodeChange={handleCodeChange}
                 showOutput={showOutput}
-                onOutputClose={onExecuteCode}
+                onOutputClose={onOutputClose}
+                output={output}
             />
         </FullContainer>
     )

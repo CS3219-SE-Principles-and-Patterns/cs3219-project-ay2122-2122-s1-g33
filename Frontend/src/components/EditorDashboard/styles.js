@@ -30,15 +30,10 @@ export const StyledDrawer = styled(Drawer)`
     position: absolute;
 `
 
-export const Output = styled("Div")`
+export const Output = styled("div")`
     background: #222221;
     border-radius: 8px;
     height: 100%;
     padding: 30px;
-`
-
-export const DrawerTitle = styled("h2")`
-    color: white;
-    overflow: scroll;
-
+    overflow: auto;
 `

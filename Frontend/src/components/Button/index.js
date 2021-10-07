@@ -6,7 +6,8 @@ const Button = ({
     size,
     onClick,
     icon,
-    label
+    label,
+    disabled
 }) => {
     return (
         <ButtonWrapper 
@@ -15,6 +16,7 @@ const Button = ({
             size={size}
             onClick={onClick}
             icon={icon}
+            disabled={disabled == null ? false : disabled}
         >
             {label}
         </ButtonWrapper>
