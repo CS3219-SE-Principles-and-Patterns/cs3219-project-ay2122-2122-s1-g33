@@ -2,6 +2,8 @@
 
 # dependencies
 /Frontend/node_modules
+/Code Executor/node_modules
+/Code Executor/routes/code/
 /.pnp
 .pnp.js
 
