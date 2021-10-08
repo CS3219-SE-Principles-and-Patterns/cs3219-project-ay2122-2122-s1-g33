@@ -1,8 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/Frontend/node_modules
-/Code Executor/node_modules
+node_modules
 /Code Executor/routes/code/
 /.pnp
 .pnp.js
@@ -15,7 +14,7 @@
 
 # misc
 .DS_Store
-/Frontend/.env
+.env
 
 /Frontend/npm-debug.log*
 /Frontend/yarn-debug.log*
