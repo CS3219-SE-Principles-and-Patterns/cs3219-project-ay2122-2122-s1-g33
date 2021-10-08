@@ -10,15 +10,13 @@ const stubDB = {
  * @param {string} id the id of the document
  */
 async function getDoc(id) {
-  if (!id || stubDB[id]) return;
-  // if (!stubDB[id]) {
-  //   stubDB[id] = {
-  //     id,
-  //     docData: ""
-  //   }
-  // }
-  console.log('stubDB :', stubDB);
-  console.log('stubDB[id] :', stubDB[id]);
+  // if (!id || stubDB[id]) return;
+  if (!stubDB[id]) {
+    stubDB[id] = {
+      id,
+      docData: ""
+    }
+  }
   return stubDB[id];
 }
 
