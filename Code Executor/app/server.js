@@ -19,8 +19,23 @@ app.get('/', (req, res) => {
     res.json({message: 'Code Executor'});
 });
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('No such API route found');
+    err.status = 404;
+    next(err);
+});
+  
+
+// Error Handling Middleware - send a JSON response instead of HTML
+app.use((err, req, res, next) => {
+    res.status(err.status).send({ error: err.message });
+})
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
 });
+
+

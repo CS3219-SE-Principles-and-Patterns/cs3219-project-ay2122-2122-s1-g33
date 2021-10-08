@@ -3,6 +3,25 @@ const router = express.Router();
 const fs = require('fs')
 const path = require('path')
 
+const apiTimeout = 10 * 1000 // 10s
+
+// Router Middleware
+// router.use((req, res, next) => {
+//     // Set timeout for all HTTP Requests through this router
+//     req.setTimeout(timeout, () => {
+//         let err = new Error('Request Timeout')
+//         err.status = 408;
+//         next(err);
+//     })
+//     // Set the server response timeout for all HTTP Requests
+//     res.setTimeout(timeout, () => {
+//         let err = new Error('Time Limit Exceeded: Code took too long to finish executing')
+//         err.status = 504;
+//         next(err);
+//     })
+//     next()
+// })
+
 // Run Python Script
 
 const runPython = (filePath) => {
@@ -10,6 +29,12 @@ const runPython = (filePath) => {
 
         const { spawn } = require('child_process')
         const pyprog = spawn('python', [filePath])
+
+        // Kill the child process after timing out
+        setTimeout(() => {
+            pyprog.kill()
+        }, apiTimeout)
+
         const output = []
 
         pyprog.stdout.on('data', function(data) {
@@ -20,8 +45,13 @@ const runPython = (filePath) => {
             reject(data.toString());
         });
 
-        pyprog.on('exit', (code) => {
-            console.log("Process quit with code : " + code);
+        pyprog.on('exit', (code, signal) => {
+            console.log(`Process quit with code ${code} with receipt of signal ${signal}`);
+            if (signal === 'SIGTERM') {
+                let error = new Error('Time Limit Exceeded: Code took too long to finish executing')
+                error.status = 504
+                reject(error)
+            }
             resolve(output)
         });
     
@@ -41,8 +71,12 @@ router.post('/', (req, res) => {
         .then(output => {
             res.send({ output, message: 'Code ran without errors.' })
         })
-        .catch(err => {
-            res.status(500).send({ error: err, message: 'Errors were found while executing the code.' })
+        .catch(error => {
+            if (error.status) {
+                res.status(error.status).send({ error: error.message, message: 'Errors were found while executing the code.' })
+            } else {
+                res.status(500).send({ error, message: 'Errors were found while executing the code.' })
+            }
         })
     // fs.unlinkSync(filePath)  // remove the temporary code file
 })
