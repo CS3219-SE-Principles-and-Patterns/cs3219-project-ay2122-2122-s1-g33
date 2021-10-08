@@ -42,7 +42,8 @@ const runPython = (filePath) => {
         });
     
         pyprog.stderr.on('data', (data) => {
-            reject(data.toString());
+            let error = new Error(data.toString())
+            reject(error)
         });
 
         pyprog.on('exit', (code, signal) => {
