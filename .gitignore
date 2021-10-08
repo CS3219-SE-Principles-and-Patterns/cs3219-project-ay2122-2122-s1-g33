@@ -15,7 +15,7 @@
 
 # misc
 .DS_Store
-/Frontend/.env
+.env
 
 /Frontend/npm-debug.log*
 /Frontend/yarn-debug.log*

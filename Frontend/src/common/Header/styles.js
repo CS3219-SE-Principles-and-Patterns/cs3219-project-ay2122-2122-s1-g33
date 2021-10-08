@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 
 export const HeaderSection = styled("header")`
     padding: 1rem 0.5rem;
@@ -24,16 +23,4 @@ export const Logo = styled("div")`
 	font-size: 40px;
 	font-weight: 600;
 	letter-spacing: -2px;
-`
-
-export const ButtonWrapper = styled(Button)`
-    color: ${props => props.theme.dark};;
-    border-color: ${props => props.theme.dark};;
-    &:hover,
-    &:active,
-    &:focus {
-        color: white;
-        border-color: white;
-        background-color: ${props => props.theme.dark};;
-    }
 `
