@@ -1,20 +1,28 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "../common/Header";
-import Container from "../common/Container";
+import FullContainer from "../common/FullContainer";
+import Button from "../components/Button";
+import DocsList from "../components/DocsList";
 
 const UserDashboardPage = () => {
-    const { user } = useAuth0();
+    const { user, logout } = useAuth0();
     const { sub, email } = user;
 
     return (
-        <>
-            <Header/>
-            <Container>
-                Logged in user email: {email}
-                <br/>
-                put user dashboard here
-            </Container>
-        </>
+        <FullContainer>
+            <Header>
+                <Button
+                    type="ghost" 
+                    shape="round"
+                    size="large"
+                    onClick={() => logout({
+                        returnTo: window.location.origin
+                    })}
+                    label="Log out"
+                />
+            </Header>
+            <DocsList/>
+        </FullContainer>
     )
 }
 
