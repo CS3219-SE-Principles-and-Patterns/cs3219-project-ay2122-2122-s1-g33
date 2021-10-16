@@ -4,6 +4,7 @@
 /Frontend/node_modules
 /Code Executor/app/node_modules
 /Code Executor/app/routes/code/
+/Docs/node_modules
 /.pnp
 .pnp.js
 
@@ -20,3 +21,4 @@
 /Frontend/npm-debug.log*
 /Frontend/yarn-debug.log*
 /Frontend/yarn-error.log*
+/Docs/table.sql
