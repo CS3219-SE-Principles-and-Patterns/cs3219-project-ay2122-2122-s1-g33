@@ -41,4 +41,16 @@ Doc.getByUserId = (userId, callback) => {
     );
 }
 
+Doc.patchDocText = (docId, docText, callback) => {
+    db.query('UPDATE Docs SET docText = $1 WHERE docId = $2', [docText, docId],
+        (error, results) => {
+            if(error) {
+                callback(error, null);
+            } else {
+                callback(null, results);
+            }
+        }
+    );
+}
+
 module.exports = Doc;

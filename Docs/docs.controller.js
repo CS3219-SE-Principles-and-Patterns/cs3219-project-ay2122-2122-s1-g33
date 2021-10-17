@@ -52,8 +52,22 @@ const getDocsByUserId = (req, res) => {
     });
 };
 
+const patchDocText = (req, res) => {
+    const docId = req.params.docId;
+    const { docText } = req.body;
+    Doc.patchDocText(docId, docText, (err, data) => {
+        if(err) {
+            // console.log(err.stack)
+            res.status(500).json('Error patching docs of given doc id');
+        } else {
+            res.status(200).send();
+        }
+    });
+};
+
 module.exports = {
     createDoc,
     getDocByDocId,
-    getDocsByUserId
+    getDocsByUserId,
+    patchDocText
 }

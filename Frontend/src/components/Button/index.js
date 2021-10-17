@@ -7,7 +7,8 @@ const Button = ({
     onClick,
     icon,
     label,
-    disabled
+    disabled,
+    loading
 }) => {
     return (
         <ButtonWrapper 
@@ -17,6 +18,7 @@ const Button = ({
             onClick={onClick}
             icon={icon}
             disabled={disabled == null ? false : disabled}
+            loading={loading == null ? false : loading}
         >
             {label}
         </ButtonWrapper>
