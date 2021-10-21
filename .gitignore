@@ -22,3 +22,6 @@
 /Frontend/yarn-debug.log*
 /Frontend/yarn-error.log*
 /Docs/table.sql
+
+
+/Sessions/node_modules
