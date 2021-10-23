@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs')
 const path = require('path')
+const tmp = require('tmp');
 
 const apiTimeout = 10 * 1000 // 10s
 
@@ -35,10 +36,10 @@ const runPython = (filePath) => {
             pyprog.kill()
         }, apiTimeout)
 
-        const output = []
+        let output = '';
 
         pyprog.stdout.on('data', function(data) {
-            output.push(data.toString())
+            output += data.toString()
         });
     
         pyprog.stderr.on('data', (data) => {
@@ -66,9 +67,17 @@ router.post('/', (req, res) => {
             message: "Content cannot be empty!"
         });
     }
-    filePath = path.join(__dirname, 'code', 'pycode.py')
+
+    // Create Temporary file
+    const tmpobj = tmp.fileSync({ prefix: 'pycode', postfix: '.py' });
+    const filePath = tmpobj.name
+    console.log('Temporary File: ', filePath);
+    
+    // Write the code received in the request to the temp file
     fs.writeFileSync(filePath, req.body.code)
-    runPython(filePath)
+
+    // Run the Python code
+    runPython(tmpobj.name)
         .then(output => {
             res.send({ output, message: 'Code ran without errors.' })
         })
@@ -76,10 +85,10 @@ router.post('/', (req, res) => {
             if (error.status) {
                 res.status(error.status).send({ error: error.message, message: 'Errors were found while executing the code.' })
             } else {
-                res.status(500).send({ error, message: 'Errors were found while executing the code.' })
+                res.status(500).send({ error: error.message, message: 'Errors were found while executing the code.' })
             }
         })
-    // fs.unlinkSync(filePath)  // remove the temporary code file
+    
 })
 
 module.exports = router
