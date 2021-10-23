@@ -12,7 +12,7 @@ io.on("connection", socket => {
   socket.on("get-document", async (docId, userId) => {
     let document = await getDocDataFromCache(docId);
     if (!document) {
-      const {docText} = await getDoc(id);
+      const {docText} = await getDoc(docId);
       if (!docText) {
         socket.emit("document-not-found", docId);
         socket.disconnect();
