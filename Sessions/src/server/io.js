@@ -1,5 +1,6 @@
-const {docsDB} = require("../database/docsDB");
-const { getDoc, setDoc } = require("../database/helpers/stubDbCalls");
+const { getDoc } = require("../database/docsService");
+const { getDocDataFromCache, setCodeDocStr } = require("../database/helpers/cacheDbCalls");
+
 const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
   cors: {
     origin: "http://localhost:3000",
@@ -24,7 +25,7 @@ io.on("connection", socket => {
     });
 
     socket.on("save-document", async data => {
-      await setDoc(docId, { id:docId, userData });
+      await setCodeDocStr(docId, { id: docId, data });
     });
   });
 
@@ -35,3 +36,7 @@ io.on("connection", socket => {
     }
   })
 })
+
+io.of("/").adapter.on("leave-room", (room, id) => {
+  console.log(`socket ${id} has left room ${room}`);
+});

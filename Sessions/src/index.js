@@ -1,2 +1,7 @@
 require('dotenv-safe').config();
-require("./server/io");
+const {getRedisClient} = require("./database/redisClient");
+
+getRedisClient()
+.then(() => {
+  require("./server/io")
+})
