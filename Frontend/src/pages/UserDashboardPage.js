@@ -6,7 +6,8 @@ import DocsList from "../components/DocsList";
 
 const UserDashboardPage = () => {
     const { user, logout } = useAuth0();
-    const { sub, email } = user;
+    const { sub } = user;
+    console.log(sub);
 
     return (
         <FullContainer>
@@ -21,7 +22,7 @@ const UserDashboardPage = () => {
                     label="Log out"
                 />
             </Header>
-            <DocsList/>
+            <DocsList userId={sub} />
         </FullContainer>
     )
 }

@@ -1,30 +1,54 @@
+import { List, Avatar, Skeleton, PageHeader } from 'antd';
+import Button from "../Button";
+import { PlusOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import API from '../../util/API';
+import constants from '../../common/constants';
 import {
     ListWrapper,
     StyledList
 } from "./styles";
-import { List, Avatar, Skeleton, PageHeader } from 'antd';
-import Button from "../Button";
-import { PlusOutlined } from "@ant-design/icons";
 
-const DocsList = () => {
+const DocsList = ({
+    userId,
+}) => {
+    const [docsList, setDocsList] =  useState([]);
+    const [isButtonLoading, setIsButtonLoading] = useState(false);
+    const history = useHistory();
 
-    const list = [
-        {
-            title: "Doc Title 1",
-            description: "Doc id 1",
-            link: "http://localhost:3000/doc/id"
-        },
-        {
-            title: "Doc Title 2",
-            description: "Doc id 1",
-            link: "http://localhost:3000/doc/id"
-        },
-        {
-            title: "Doc Title 3",
-            description: "Doc id 1",
-            link: "http://localhost:3000/doc/id"
-        }
-    ]
+    const onClickCreate = () => {
+        setIsButtonLoading(true);
+        API.createDoc(userId, constants.defaultCode, "Doc Program")
+            .then(response => {
+                setIsButtonLoading(false);
+                history.push(`/doc/${response.data.docId}`)
+            }, error => {
+                setIsButtonLoading(false);
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        API.getUserDocs(userId)
+            .then(response => {
+                const docs = response.data.map((doc) => {
+                    const {
+                        docid,
+                        doctitle,
+                    } = doc;
+                    return {
+                        title: doctitle,
+                        id: docid,
+                        link: `http://localhost:3000/doc/${docid}`
+                    }
+                });
+
+                setDocsList(docs);
+            }, error => {
+                console.log(error)
+            })
+    }, []);
 
     return (
         <ListWrapper>
@@ -35,15 +59,16 @@ const DocsList = () => {
                         type="ghost" 
                         shape="round"
                         size="medium"
-                        onClick={() => {}}
+                        onClick={() => onClickCreate()}
                         label="Create"
                         icon={<PlusOutlined />}
+                        loading={isButtonLoading}
                     />
                 ]}
             />
             <StyledList
                 size="large"
-                dataSource={list}
+                dataSource={docsList}
                 itemLayout="horizontal"
                 renderItem={item => {
 
@@ -57,7 +82,7 @@ const DocsList = () => {
                                         <Avatar src="https://cdn2.iconfinder.com/data/icons/document-20/100/Html-512.png"/>
                                     }
                                     title={<a href={item.link} target="_blank">{item.title}</a>}
-                                    description={item.description}
+                                    description={item.id}
                                 />
                             </Skeleton>
                         </List.Item>
