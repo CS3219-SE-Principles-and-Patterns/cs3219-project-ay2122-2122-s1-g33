@@ -19,4 +19,19 @@ async function setCodeExecutorOutput(id, data) {
   return redisClient.hSet(id, "codeExecOutput", data);
 }
 
-module.exports = { getDocDataFromCache, setCodeDocStr, setCodeExecutorOutput };
+async function deleteDocDataFromCache(id) {
+  const redisClient = await getRedisClient();
+  redisClient.del(id);
+}
+
+async function getCodeExecutionStatus(id) {
+  const redisClient = await getRedisClient();
+  const status = await redisClient.hGet(id, "isCodeExecRunning");
+  return Boolean(status);
+}
+async function setCodeExecutionStatus(id, status) {
+  const redisClient = await getRedisClient();
+  redisClient.hSet(id, "isCodeExecRunning", status);
+}
+
+module.exports = { getDocDataFromCache, setCodeDocStr, setCodeExecutorOutput, deleteDocDataFromCache, getCodeExecutionStatus, setCodeExecutionStatus };
