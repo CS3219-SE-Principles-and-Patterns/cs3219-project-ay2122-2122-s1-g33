@@ -9,10 +9,12 @@ const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
 });
 
 io.on("connection", socket => {
+  console.log("connection here")
   socket.on("get-document", async (docId, userId) => {
     let document = await getDocDataFromCache(docId);
     if (!document) {
-      const {docText} = await getDoc(docId);
+      const response = await getDoc(docId);
+      const {docText} = response.data;
       if (!docText) {
         socket.emit("document-not-found", docId);
         socket.disconnect();
