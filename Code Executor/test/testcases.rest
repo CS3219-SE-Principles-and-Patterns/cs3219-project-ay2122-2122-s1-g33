@@ -1,0 +1,28 @@
+### Correct input, print statement
+POST /code-executor HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "code": "print('2')"
+}
+
+### Correct input, addition
+
+POST /code-executor HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "code": "h = 1 + 1; print(h)"
+}
+
+### Wrong input, no semicolon for separation indication
+
+POST /code-executor HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "code": "h = 1 + 1 print(h)"
+}

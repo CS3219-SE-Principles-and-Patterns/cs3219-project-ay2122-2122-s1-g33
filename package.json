@@ -1,0 +1,30 @@
+{
+  "name": "cs3219-project-ay2122-2122-s1-g33",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CS3219-SE-Principles-and-Patterns/cs3219-project-ay2122-2122-s1-g33.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CS3219-SE-Principles-and-Patterns/cs3219-project-ay2122-2122-s1-g33/issues"
+  },
+  "homepage": "https://github.com/CS3219-SE-Principles-and-Patterns/cs3219-project-ay2122-2122-s1-g33#readme",
+  "devDependencies": {
+    "babel-jest": "^27.3.1",
+    "start-server-and-test": "^1.14.0",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "axios": "^0.23.0"
+  }
+}
