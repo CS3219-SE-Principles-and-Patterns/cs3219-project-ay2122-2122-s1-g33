@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-axios.post('http://localhost:3000/code-executor', {
+axios.post('http://localhost:8080/code-executor', {
     "code": "print('hello world!')"
 })
     .then(function (response) {
@@ -8,7 +8,7 @@ axios.post('http://localhost:3000/code-executor', {
         console.log(output)
     })
 
-axios.post('http://localhost:3000/code-executor', {
+axios.post('http://localhost:8080/code-executor', {
     "code": "answer = 1 + 1; print(answer)"
 })
     .then(function (response) {
