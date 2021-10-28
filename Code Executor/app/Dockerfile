@@ -9,4 +9,4 @@ RUN npm install
 RUN apt-get install -y python 
 # RUN apt-get install python-is-python3
 CMD ["npm", "start"]
-EXPOSE 3000
+EXPOSE 8080

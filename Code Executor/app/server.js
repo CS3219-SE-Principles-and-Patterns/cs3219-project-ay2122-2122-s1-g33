@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
     res.status(err.status).send({ error: err.message });
 })
 
-const port = process.env.PORT || 3050;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
