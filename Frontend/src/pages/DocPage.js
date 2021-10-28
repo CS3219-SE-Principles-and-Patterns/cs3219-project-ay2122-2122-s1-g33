@@ -20,7 +20,7 @@ const DocPage = () => {
 
 
     useEffect(() => {
-        const s = io("http://localhost:3002");
+        const s = io(process.env.REACT_APP_SESSIONS_SERVER_URL);
         setSocket(s);
 
         s.emit("get-document", id);
