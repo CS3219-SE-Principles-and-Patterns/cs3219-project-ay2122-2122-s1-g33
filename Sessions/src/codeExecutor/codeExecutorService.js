@@ -6,4 +6,4 @@ async function executeCode(code) {
   return axios.post(`${CODE_EXECUTOR_URL}/code-executor`, { code });
 }
 
-module.exports = executeCode;
+module.exports = {executeCode};

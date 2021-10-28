@@ -1,5 +1,6 @@
 const { getDoc } = require("../database/docsService");
 const { getDocDataFromCache, setCodeDocStr, deleteDocDataFromCache, getCodeExecutionStatus, setCodeExecutionStatus } = require("../database/helpers/cacheDbCalls");
+const { executeCode } = require("../codeExecutor/codeExecutorService");
 
 const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
   cors: {
@@ -42,7 +43,7 @@ io.on("connection", socket => {
         socket.emit("code-still-running")
       } else {
         socket.broadcast.to(docId).emit("code-execution-start");
-        await setCodeExecutionStatus(docId, true);
+        await setCodeExecutionStatus(docId, 1);
         const res = await executeCode(data);
         socket.emit("code-execution-end", res.body);
       }

@@ -27,11 +27,19 @@ async function deleteDocDataFromCache(id) {
 async function getCodeExecutionStatus(id) {
   const redisClient = await getRedisClient();
   const status = await redisClient.hGet(id, "isCodeExecRunning");
-  return Boolean(status);
+  return convertIntStatusToBool(status);
 }
 async function setCodeExecutionStatus(id, status) {
   const redisClient = await getRedisClient();
-  redisClient.hSet(id, "isCodeExecRunning", status);
+  redisClient.hSet(id, "isCodeExecRunning", convertBoolStatusToInt(status));
+}
+
+function convertBoolStatusToInt(status) {
+  return status ? "1" : "0";
+}
+
+function convertIntStatusToBool(status) {
+  return status === "1" ? true : false;
 }
 
 module.exports = { getDocDataFromCache, setCodeDocStr, setCodeExecutorOutput, deleteDocDataFromCache, getCodeExecutionStatus, setCodeExecutionStatus };
