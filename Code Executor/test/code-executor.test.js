@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 test('No errors, prints hello world', () => {
-    axios.post('http://localhost:3000/code-executor', {
+    axios.post('http://localhost:8080/code-executor', {
         "code": "print('hello world!')"
     })
         .then(function (response) {

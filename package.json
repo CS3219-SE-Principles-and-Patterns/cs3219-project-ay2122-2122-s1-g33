@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "node Code\\ Executor/app/server.js &",
     "test": "jest --coverage"
   },
   "repository": {
@@ -25,6 +26,10 @@
     "supertest": "^6.1.6"
   },
   "dependencies": {
-    "axios": "^0.23.0"
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jest": "^27.3.1",
+    "tmp": "^0.2.1"
   }
 }
