@@ -1,4 +1,7 @@
+const { patchDocText } = require("../docsService");
 const { getRedisClient } = require("../redisClient");
+
+const DOCS_SAVE_INTERVAL = 3 * 1000; // 3s
 
 async function getDocDataFromCache(id) {
   const redisClient = await getRedisClient();
@@ -11,7 +14,12 @@ async function getDocDataFromCache(id) {
 
 async function setCodeDocStr(id, data) {
   const redisClient = await getRedisClient();
-  return redisClient.hSet(id, "docData", data);
+  const response = await redisClient.hSet(id, "docData", data);
+  const lastSaved = await getRoomLastSaved(id)
+  if (lastSaved < Date.now() - DOCS_SAVE_INTERVAL) {
+    await patchDocText(id, data);
+  }
+  return updateRoomDocLastSaved(id);
 }
 
 async function setCodeExecutorOutput(id, data) {
@@ -29,9 +37,20 @@ async function getCodeExecutionStatus(id) {
   const status = await redisClient.hGet(id, "isCodeExecRunning");
   return convertIntStatusToBool(status);
 }
+
 async function setCodeExecutionStatus(id, status) {
   const redisClient = await getRedisClient();
-  redisClient.hSet(id, "isCodeExecRunning", convertBoolStatusToInt(status));
+  await redisClient.hSet(id, "isCodeExecRunning", convertBoolStatusToInt(status));
+}
+
+async function updateRoomDocLastSaved(id) {
+  const redisClient = await getRedisClient();
+  await redisClient.hSet(id, "lastSaved", Date.now());
+}
+
+async function getRoomLastSaved(id) {
+  const redisClient = await getRedisClient();
+  return redisClient.hGet(id, "lastSaved");
 }
 
 function convertBoolStatusToInt(status) {
@@ -42,4 +61,13 @@ function convertIntStatusToBool(status) {
   return status === "1" ? true : false;
 }
 
-module.exports = { getDocDataFromCache, setCodeDocStr, setCodeExecutorOutput, deleteDocDataFromCache, getCodeExecutionStatus, setCodeExecutionStatus };
+module.exports = { 
+  getDocDataFromCache,
+  setCodeDocStr,
+  setCodeExecutorOutput,
+  deleteDocDataFromCache,
+  getCodeExecutionStatus,
+  setCodeExecutionStatus,
+  updateRoomDocLastSaved,
+  getRoomLastSaved
+};

@@ -1,5 +1,9 @@
 const { getDoc } = require("../database/docsService");
-const { getDocDataFromCache, setCodeDocStr, deleteDocDataFromCache, getCodeExecutionStatus, setCodeExecutionStatus } = require("../database/helpers/cacheDbCalls");
+const { getDocDataFromCache,
+  setCodeDocStr,
+  getCodeExecutionStatus,
+  setCodeExecutionStatus
+} = require("../database/helpers/cacheDbCalls");
 const { executeCode } = require("../codeExecutor/codeExecutorService");
 
 const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
