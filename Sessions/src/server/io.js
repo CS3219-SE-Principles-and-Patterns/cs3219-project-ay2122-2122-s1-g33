@@ -12,8 +12,9 @@ const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
 io.on("connection", socket => {
   console.log("connection here")
   socket.on("get-document", async (docId, userId) => {
-    let document = await getDocDataFromCache(docId);
-    if (!document) {
+    let document = null;
+    const cacheData = await getDocDataFromCache(docId);
+    if (!cacheData) {
       const response = await getDoc(docId);
       const {docText} = response.data;
       if (!docText) {
@@ -23,6 +24,8 @@ io.on("connection", socket => {
       } else {
         document = docText;
       }
+    } else {
+      document = cacheData.docData;
     }
     // Join room based off document ID.
     socket.join(docId);
@@ -73,8 +76,6 @@ io.on("connection", socket => {
 })
 
 // io.of("/").adapter.on("leave-room", (room, id) => {
-//   if (io.sockets.clients(room).length > 0) {
-//     return;
-//   }
+  
 //   deleteDocDataFromCache(id);
 // });
