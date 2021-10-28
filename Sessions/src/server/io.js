@@ -44,8 +44,17 @@ io.on("connection", socket => {
       } else {
         socket.broadcast.to(docId).emit("code-execution-start");
         await setCodeExecutionStatus(docId, 1);
-        const res = await executeCode(data);
-        socket.emit("code-execution-end", res.data);
+        let output = { output: "", error: "An unexpected error has occurred while executing your code."};
+        try {
+          const res = await executeCode(data);
+          output = res.data;
+        } catch (err) {
+          console.log(err);
+        } finally {
+          socket.emit("code-execution-end", data);
+          await setCodeExecutionStatus(docId, 0);
+        }
+        
       }
     })
 
