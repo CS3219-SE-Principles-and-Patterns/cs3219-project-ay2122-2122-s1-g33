@@ -45,7 +45,7 @@ io.on("connection", socket => {
         socket.broadcast.to(docId).emit("code-execution-start");
         await setCodeExecutionStatus(docId, 1);
         const res = await executeCode(data);
-        socket.emit("code-execution-end", res.body);
+        socket.emit("code-execution-end", res.data);
       }
     })
 
