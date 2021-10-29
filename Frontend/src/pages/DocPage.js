@@ -137,7 +137,7 @@ const DocPage = () => {
 
         const handleCodeExecuted = (result) => {
             setIsExecuting(false);
-            setOutput(result);
+            setOutput(result.output);
         }
 
         socket.on("code-execution-end", handleCodeExecuted)
