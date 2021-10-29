@@ -29,6 +29,10 @@ const DocsList = ({
             })
     }
 
+    const onCopyLink = (link) => {
+        navigator.clipboard.writeText(link)
+    }
+
     useEffect(() => {
         API.getUserDocs(userId)
             .then(response => {
@@ -74,7 +78,13 @@ const DocsList = ({
 
                     return (
                         <List.Item
-                            actions={[<a key="list-loadmore-edit">copy link</a>]}
+                            actions={[
+                            <a 
+                                onClick={() => onCopyLink(item.link)}
+                                key="list-loadmore-edit">
+                                copy link
+                            </a>
+                        ]}
                         >
                             <Skeleton avatar title={false} loading={item.loading} active>
                                 <List.Item.Meta
