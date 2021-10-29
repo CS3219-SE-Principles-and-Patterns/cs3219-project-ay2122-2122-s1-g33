@@ -26,9 +26,13 @@ const DocPage = () => {
         s.emit("get-document", id);
 
         s.once("load-document", async document => {
+            const { docData, isCodeExecRunning } = document
+            if(isCodeExecRunning) {
+                toggleCodeExcecutingMode()
+            }
             console.log(document)
             setDelta(new Delta([{
-                insert: document
+                insert: docData
             }]))
         })
 
@@ -93,6 +97,7 @@ const DocPage = () => {
         const changes = delta.diff(newDelta);
 
         socket.emit("send-changes", changes);
+        socket.emit("save-document", value);
 
         setDelta(newDelta)
         API.patchDocText(id, value)
@@ -136,6 +141,9 @@ const DocPage = () => {
         if(socket == null) return;
 
         const handleCodeExecuted = (result) => {
+            if(!showOutput) {
+                setShowOutput(true);
+            }
             setIsExecuting(false);
             setOutput(result.output);
         }
