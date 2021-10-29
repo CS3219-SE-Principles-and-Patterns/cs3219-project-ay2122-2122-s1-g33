@@ -19,6 +19,18 @@ const createDoc = (req, res) => {
     })
 }
 
+const deleteDoc = (req, res) => {
+    const docId = req.params.docId;
+    Doc.deleteByDocId(docId, (err, data) => {
+        if(err) {
+            res.status(500).json('Could not delete doc');
+            // console.log(err.stack)
+        } else {
+            res.status(201).json({ docId });
+        }
+    })
+}
+
 const getDocByDocId = (req, res) => {
     const docId = req.params.docId;
     Doc.getByDocId(docId, (err, data) => {
@@ -69,5 +81,6 @@ module.exports = {
     createDoc,
     getDocByDocId,
     getDocsByUserId,
-    patchDocText
+    patchDocText,
+    deleteDoc
 }

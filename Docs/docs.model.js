@@ -29,6 +29,17 @@ Doc.getByDocId = (docId, callback) => {
     });
 }
 
+Doc.deleteByDocId = (docId, callback) => {
+    db.query('DELETE * FROM DOCS WHERE docId = $1', [docId]),
+    (error, results) => {
+        if(error) {
+            callback(error, null);
+        } else {
+            callback(null, results);
+        }
+    }
+}
+
 Doc.getByUserId = (userId, callback) => {
     db.query('SELECT * FROM Docs WHERE userId = $1', [userId],
         (error, results) => {
