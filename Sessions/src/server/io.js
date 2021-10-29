@@ -2,7 +2,9 @@ const { getDoc } = require("../database/docsService");
 const { getDocDataFromCache,
   setCodeDocStr,
   getCodeExecutionStatus,
-  setCodeExecutionStatus
+  setCodeExecutionStatus,
+  decrCountOfRoom,
+  incrCountOfRoom
 } = require("../database/helpers/cacheDbCalls");
 const { executeCode } = require("../codeExecutor/codeExecutorService");
 
@@ -36,6 +38,7 @@ io.on("connection", socket => {
       document = cacheData;
     }
     // Join room based off document ID.
+    await incrCountOfRoom(docId);
     socket.join(docId);
     socket.emit("load-document", document);
 
@@ -77,7 +80,6 @@ io.on("connection", socket => {
           socket.broadcast.to(docId).emit("code-execution-end", output);
           await setCodeExecutionStatus(docId, 0);
         }
-        
       }
     })
 
@@ -95,7 +97,9 @@ io.on("connection", socket => {
   })
 })
 
-// io.of("/").adapter.on("leave-room", (room, id) => {
-  
-//   deleteDocDataFromCache(id);
-// });
+io.of("/").adapter.on("leave-room", (room, id) => {
+  const count = decrCountOfRoom(room);
+  if (count <= 0) {
+    await deleteDocDataFromCache(id);
+  }
+});

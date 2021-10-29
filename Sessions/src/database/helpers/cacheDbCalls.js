@@ -54,6 +54,28 @@ async function getRoomLastSaved(id) {
   return Number(str);
 }
 
+async function incrCountOfRoom(id) {
+  const redisClient = await getRedisClient();
+  const key = getRoomCountKey(id);
+  return redisClient.incr(key);
+}
+
+async function decrCountOfRoom(id) {
+  const redisClient = await getRedisClient();
+  const key = getRoomCountKey(id);
+  return redisClient.decr(key);
+}
+
+async function getCountForRoom(id) {
+  const redisClient = await getRedisClient();
+  const key = getRoomCountKey(id);
+  return redisClient.get(key);
+}
+
+function getRoomCountKey(id) {
+  return `socket-room-member-count-${id}`;
+}
+
 function convertBoolStatusToInt(status) {
   return status ? "1" : "0";
 }
@@ -70,5 +92,8 @@ module.exports = {
   getCodeExecutionStatus,
   setCodeExecutionStatus,
   updateRoomDocLastSaved,
-  getRoomLastSaved
+  getRoomLastSaved,
+  incrCountOfRoom,
+  decrCountOfRoom,
+  getCountForRoom
 };
