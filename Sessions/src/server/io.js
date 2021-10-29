@@ -58,6 +58,7 @@ io.on("connection", socket => {
         } catch (err) {
           console.log(err);
         } finally {
+          socket.emit("code-execution-end", output);
           socket.broadcast.to(docId).emit("code-execution-end", output);
           await setCodeExecutionStatus(docId, 0);
         }
