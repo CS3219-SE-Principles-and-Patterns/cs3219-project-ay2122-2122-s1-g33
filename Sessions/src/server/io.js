@@ -56,7 +56,11 @@ io.on("connection", socket => {
           const res = await executeCode(data);
           output = res.data;
         } catch (err) {
-          console.log(err);
+          if (res.data && res.data.error && res.data.message) {
+            output = res.data;
+          } else {
+            console.log(err);
+          }
         } finally {
           socket.emit("code-execution-end", output);
           socket.broadcast.to(docId).emit("code-execution-end", output);
