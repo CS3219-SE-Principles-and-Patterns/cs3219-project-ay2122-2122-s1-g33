@@ -26,9 +26,13 @@ const DocPage = () => {
         s.emit("get-document", id);
 
         s.once("load-document", async document => {
+            const { docData, isCodeExecRunning } = document
+            if(isCodeExecRunning) {
+                toggleCodeExcecutingMode()
+            }
             console.log(document)
             setDelta(new Delta([{
-                insert: document
+                insert: docData
             }]))
         })
 
