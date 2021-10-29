@@ -81,6 +81,5 @@ module.exports = {
     createDoc,
     getDocByDocId,
     getDocsByUserId,
-    patchDocText,
-    deleteDoc
+    patchDocText
 }
