@@ -45,12 +45,13 @@ async function setCodeExecutionStatus(id, status) {
 
 async function updateRoomDocLastSaved(id) {
   const redisClient = await getRedisClient();
-  await redisClient.hSet(id, "lastSaved", Date.now());
+  await redisClient.hSet(id, "lastSaved", `${Date.now()}`);
 }
 
 async function getRoomLastSaved(id) {
   const redisClient = await getRedisClient();
-  return redisClient.hGet(id, "lastSaved");
+  const str = redisClient.hGet(id, "lastSaved");
+  return Number(str);
 }
 
 function convertBoolStatusToInt(status) {
