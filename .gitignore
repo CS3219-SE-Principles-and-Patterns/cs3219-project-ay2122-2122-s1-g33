@@ -17,6 +17,8 @@
 # misc
 .DS_Store
 .env
+.env.production
+gcp-service-account.json
 
 /Frontend/npm-debug.log*
 /Frontend/yarn-debug.log*
