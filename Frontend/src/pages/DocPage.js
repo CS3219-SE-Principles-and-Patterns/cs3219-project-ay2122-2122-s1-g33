@@ -81,9 +81,10 @@ const DocPage = () => {
     // }, [])
 
     const getCodeFromDelta = (delta) => {
-        if(delta == null) {
+        if(delta == null || delta.ops.length == 0) {
             return "";
         } else {
+            console.log(delta)
             return delta.ops[0].insert;
         }
     }
