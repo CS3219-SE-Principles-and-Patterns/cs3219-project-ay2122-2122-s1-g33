@@ -9,7 +9,7 @@ async function getDocDataFromCache(id) {
   if (Object.keys(allData).length === 0) {
     return null;
   }
-  return allData;
+  return {...allData, isCodeExecRunning: convertIntStatusToBool(allData.isCodeExecRunning)};
 }
 
 async function setCodeDocStr(id, data) {
