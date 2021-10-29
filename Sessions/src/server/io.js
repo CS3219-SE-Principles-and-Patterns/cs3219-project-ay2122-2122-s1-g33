@@ -56,8 +56,15 @@ io.on("connection", socket => {
           const res = await executeCode(data);
           output = res.data;
         } catch (err) {
-          if (err.response && err.response.data && err.response.data.error && err.response.data.message) {
-            output = err.data;
+          if (
+            err.response && 
+            err.response.data && 
+            err.response.data.error && 
+            err.response.data.message
+          ) {
+            output =  {
+              output: err.response.data.error
+            };
           } else {
             console.log(err);
           }
