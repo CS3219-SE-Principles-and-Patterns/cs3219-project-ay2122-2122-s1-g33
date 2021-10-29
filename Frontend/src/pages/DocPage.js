@@ -30,7 +30,6 @@ const DocPage = () => {
             if(isCodeExecRunning) {
                 toggleCodeExcecutingMode()
             }
-            console.log(document)
             setDelta(new Delta([{
                 insert: docData
             }]))
@@ -63,25 +62,8 @@ const DocPage = () => {
 
     }, [delta])
 
-    // useEffect(() => {
-    //     API.getDoc(id)
-    //         .then(response => {
-    //             const {
-    //                 docId,
-    //                 docTitle,
-    //                 docText,
-    //                 userId
-    //             } = response.data;
-    //             setDelta(new Delta([{
-    //                 insert: docText
-    //             }]))
-    //         }, error => {
-    //             console.log(error);
-    //         })
-    // }, [])
-
     const getCodeFromDelta = (delta) => {
-        if(delta == null) {
+        if(delta == null || delta.ops.length == 0) {
             return "";
         } else {
             return delta.ops[0].insert;
@@ -89,7 +71,6 @@ const DocPage = () => {
     }
 
     const handleCodeChange = (value, event) => {
-        // console.log(event.changes)
         const newDelta = new Delta([{
             insert: value
         }]);
@@ -102,7 +83,6 @@ const DocPage = () => {
         setDelta(newDelta)
         API.patchDocText(id, value)
             .then(response => {
-                console.log('code updated')
             }, error => {
                 console.log(error);
             })
