@@ -26,10 +26,14 @@ io.on("connection", socket => {
         socket.disconnect();
         return;
       } else {
-        document = docText;
+        document = {
+          docData: docText,
+          codeExecOutput: "",
+          isCodeExecRunning: false
+        };
       }
     } else {
-      document = cacheData.docData;
+      document = cacheData;
     }
     // Join room based off document ID.
     socket.join(docId);
