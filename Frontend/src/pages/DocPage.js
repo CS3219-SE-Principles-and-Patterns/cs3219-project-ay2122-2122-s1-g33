@@ -93,6 +93,7 @@ const DocPage = () => {
         const changes = delta.diff(newDelta);
 
         socket.emit("send-changes", changes);
+        socket.emit("save-document", value);
 
         setDelta(newDelta)
         API.patchDocText(id, value)
@@ -136,6 +137,9 @@ const DocPage = () => {
         if(socket == null) return;
 
         const handleCodeExecuted = (result) => {
+            if(!showOutput) {
+                setShowOutput(true);
+            }
             setIsExecuting(false);
             setOutput(result.output);
         }
