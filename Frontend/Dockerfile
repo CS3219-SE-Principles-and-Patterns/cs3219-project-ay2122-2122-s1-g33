@@ -8,13 +8,17 @@ RUN npm i -g --force yarn serve
 
 COPY . .
 
-RUN yarn
+RUN yarn --frozen-lockfile
+
+# Legacy docker settings cos node 17 breaks build
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN yarn build
 
 WORKDIR /usr/src/app/build
 
 ENV NODE_ENV=production
+
 
 EXPOSE 3000
 
