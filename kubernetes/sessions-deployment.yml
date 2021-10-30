@@ -16,4 +16,4 @@ spec:
       - name: docs
         image: asia.gcr.io/peerprogram/sessions:d0ed7f0-dirty-JPK6VQ3Z
         ports:
-        - containerPort: 3003
+        - containerPort: 6969

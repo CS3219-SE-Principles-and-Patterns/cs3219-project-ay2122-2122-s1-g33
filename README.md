@@ -14,6 +14,7 @@ This order is listed in order of how we start them up in kubernetes.
 1. Code Executor NGINX Reverse Proxy
 1. Sessions Service
 1. Frontend
+1. Ingress
 
 ## Authenticating yourself
 

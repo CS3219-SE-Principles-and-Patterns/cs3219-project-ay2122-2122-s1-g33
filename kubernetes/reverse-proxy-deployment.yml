@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverse-proxy-deployment
+  labels:
+    app: reverse-proxy
+spec:
+  selector:
+    matchLabels:
+      app: reverse-proxy
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: reverse-proxy
+    spec:
+      containers:
+      - name: reverse-proxy
+        image: 
+        ports:
+        - containerPort: 3000

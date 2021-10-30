@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-executor-deployment
+spec:
+  selector:
+    matchLabels:
+      app: code-executor
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: code-executor
+    spec:
+      containers:
+      - name: code-executor
+        image: asia.gcr.io/peerprogram/code-executor:9500f94-dirty-YYBF2GV3
+        ports:
+        - containerPort: 8080
