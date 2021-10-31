@@ -1,0 +1,14 @@
+# Video Resource: https://www.youtube.com/watch?v=M2NroN1DYqM
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: code-executor
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: code-executor
+  minReplicas: 5
+  maxReplicas: 50
+  targetCPUUtilizationPercentage: 50
