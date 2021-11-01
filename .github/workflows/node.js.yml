@@ -28,5 +28,4 @@ jobs:
         cache: 'npm'
     - run: npm cache clean --force
     - run: npm i
-    - run: npm start
     - run: npm test
