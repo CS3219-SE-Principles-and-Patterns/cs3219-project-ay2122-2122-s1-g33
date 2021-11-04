@@ -97,7 +97,7 @@ io.on("connection", socket => {
   })
 })
 
-io.of("/").adapter.on("leave-room", (room, id) => {
+io.of("/").adapter.on("leave-room", async (room, id) => {
   const count = decrCountOfRoom(room);
   if (count <= 0) {
     await deleteDocDataFromCache(id);
