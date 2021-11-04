@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: sessions
-        image: asia.gcr.io/peerprogram/sessions:143e0ba
+        image: asia.gcr.io/peerprogram/sessions:9aa9688
         ports:
         - containerPort: 6969
