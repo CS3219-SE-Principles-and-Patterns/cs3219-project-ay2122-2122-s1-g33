@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
+    "axios-mock-adapter": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jest": "^27.3.1",

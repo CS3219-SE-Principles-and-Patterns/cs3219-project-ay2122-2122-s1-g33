@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // Load the router modules for Code Executor
-app.use('/code-executor', codeExecutor);
+app.use('/code-executor', codeExecutor.router);
 
 // Index Route
 app.get('/', (req, res) => {
