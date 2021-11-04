@@ -10,7 +10,7 @@ const { executeCode } = require("../codeExecutor/codeExecutorService");
 
 const io = require("socket.io")(process.env.SESSIONS_SOCKET_PORT, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: true,
     methods: ["GET", "POST"],
   },
 });
