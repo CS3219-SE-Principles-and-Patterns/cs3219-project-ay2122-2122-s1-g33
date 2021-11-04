@@ -19,3 +19,29 @@ spec:
         image: asia.gcr.io/peerprogram/frontend:1d6db68
         ports:
         - containerPort: 3000
+        env:
+        - name: REACT_APP_AUTH0_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: prod
+              key: REACT_APP_AUTH0_DOMAIN
+        - name: REACT_APP_AUTH0_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: prod
+              key: REACT_APP_AUTH0_CLIENT_ID
+        - name: REACT_APP_DOCS_SERVER_URL
+          valueFrom:
+            secretKeyRef:
+              name: prod
+              key: REACT_APP_DOCS_SERVER_URL
+        - name: REACT_APP_SESSIONS_SERVER_URL
+          valueFrom:
+            secretKeyRef:
+              name: prod
+              key: REACT_APP_SESSIONS_SERVER_URL
+        - name: REACT_APP_WEBSITE_URL
+          valueFrom:
+            secretKeyRef:
+              name: prod
+              key: REACT_APP_WEBSITE_URL
