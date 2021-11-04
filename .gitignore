@@ -25,5 +25,6 @@ gcp-service-account.json
 /Frontend/yarn-error.log*
 /Docs/table.sql
 
+/onlyduh.com/*
 
 /Sessions/node_modules
