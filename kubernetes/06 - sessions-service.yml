@@ -8,7 +8,7 @@ spec:
   type: ClusterIP
   ports:
   - protocol: TCP
-    port: 6969
+    port: 80
     targetPort: 6969
     name: sessions-service
   selector:
