@@ -15,11 +15,8 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN yarn build
 
-WORKDIR /usr/src/app/build
-
 ENV NODE_ENV=production
-
 
 EXPOSE 3000
 
-CMD ["serve", "-l", "3000"]
+CMD ["yarn", "prod"]
