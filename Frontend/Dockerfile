@@ -15,8 +15,6 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 
 COPY . .
 
-RUN yarn build
-
 ENV NODE_ENV=production
 
 EXPOSE 3000
