@@ -17,3 +17,6 @@ spec:
         image: asia.gcr.io/peerprogram/sessions:9aa9688
         ports:
         - containerPort: 6969
+        envFrom:
+          - secretRef:
+              name: prod
