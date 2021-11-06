@@ -44,7 +44,6 @@ jobs:
       # Kubernetes env var
       - name: Set up Kubernetes env var
         run: |-
-          kubectl delete secret prod
           kubectl create secret generic prod ${{ secrets.PRODUCTION }}
           kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SERVER_CRT }} --key=${{ secrets.SERVER_KEY }}
 
