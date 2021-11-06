@@ -49,30 +49,37 @@ jobs:
       # Build, Push and deploy the Docker images
       - name: Code Executor Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Code Executor/app
 
       - name: Reverse Proxy Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Code Executor/nginx-docker
 
       - name: Docs Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Docs
 
       - name: Frontend Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Frontend
 
       - name: Sessions Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Sessions
+
+      # run kubectl apply command for ingress and horizontal-pod
+      - name: kubectl apply
+        run: |-
+          kubectl apply -f '09 - ingress.yml'
+          kubectl apply -f '10 - code-executor-horizontal-pod-autoscaler.yml'
+        working-directory: kubernetes
