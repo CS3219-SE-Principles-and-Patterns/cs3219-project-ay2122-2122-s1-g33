@@ -18,7 +18,8 @@ docker push "$uri"
 
 echo "Pushed new image to: $uri"
 
-./kustomize edit set image $uri
-./kustomize build . | kubectl apply -f -
+cd
+sudo ./kustomize edit set image $uri
+sudo ./kustomize build . | kubectl apply -f -
 kubectl rollout status deployment/code-executor
 kubectl get services -o wide
