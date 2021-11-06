@@ -6,19 +6,21 @@
 name: Build and Deploy to GKE
 
 on:
-  pull_request:
+  push:
     branches:
       - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: peer-program-cluster-2    # Add your cluster name here.
+  GKE_ZONE: asia-southeast1-a   # Add your cluster zone here.
+  DEPLOYMENT_NAME: gke-peerprogram # Add your deployment name here.
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
-
-    env:
-      HASH: $(git rev-parse --short "$VERSION")
-      BRANCH: ${GITHUB_REF##*/}
 
     steps:
       - name: Checkout
@@ -28,12 +30,58 @@ jobs:
       - uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GKE_SA_KEY }}
+          service_account_email: ${{ secrets.ACCOUNT_EMAIL }}
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      # Build and push docker image
-      - name: Build and Push
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@main
+        with:
+          cluster_name: peer-program-cluster-2
+          location: asia-southeast1-a
+          credentials: ${{ secrets.GKE_SA_KEY }}
+
+      # Build and Push the Docker images
+      - name: Code Executor Image
         run: |-
           chmod +x build.sh
           sudo ./build.sh
         working-directory: Code Executor/app
+
+      - name: Reverse Proxy Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Code Executor/nginx-docker
+
+      - name: Docs Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Docs
+
+      - name: Frontend Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Frontend
+
+      - name: Sessions Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Sessions
+
+      # Deploy to GCP
+      - name: Deploy
+        run: |-
+          kubectl create secret generic prod ${{ secrets.PRODUCTION }}
+          kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
+          chmod +x deploy.sh
+          sudo ./deploy.sh
+        working-directory: kubernetes
