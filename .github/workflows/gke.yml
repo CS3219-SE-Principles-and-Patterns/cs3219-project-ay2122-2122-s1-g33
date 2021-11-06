@@ -31,18 +31,13 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      # Build docker image
-      - name: Image
-        run: |-
-          docker build --build-arg -t asia.gcr.io/peerprogram/code-executor:$VERSION .
-        working-directory: Code Executor/app
-
       # Configure docker to use the gcloud command-line tool as a credential helper
       - run: |
           gcloud auth configure-docker -q
 
-      # Push image to Google Container Registry
-      - name: Build
+      # Build and push docker image
+      - name: Build and Push
         run: |-
-          docker push asia.gcr.io/peerprogram/code-executor:$VERSION
+          chmod +x build.sh
+          sudo ./build.sh
         working-directory: Code Executor/app
