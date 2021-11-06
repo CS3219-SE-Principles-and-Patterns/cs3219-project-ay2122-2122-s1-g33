@@ -45,7 +45,9 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
-      # set ssh socket
+      # Configure docker
+      - name: Configure docker
+        run: gcloud auth configure-docker
 
       # Build and Push the Docker images
       - name: Code Executor Image
