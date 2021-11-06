@@ -1,18 +1,26 @@
-name: Build
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build and Deploy to GKE
+
 on:
   pull_request:
     branches:
       - main
 
-jobs:
-  build:
-    name: Build image
-    runs-on: ubuntu-18.04
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: peer-program-cluster-1    # Add your cluster name here.
+  GKE_ZONE: asia-southeast1  # Add your cluster zone here.
+  DEPLOYMENT_NAME: gke-peerprogram # Add your deployment name here.
 
-    env:
-      PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-      HASH: $(git rev-parse --short "$GITHUB_SHA")
-      BRANCH: ${GITHUB_REF##*/}
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-18.04
+    environment: production
 
     steps:
       - name: Checkout
@@ -38,18 +46,8 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
-      # Set up kustomize
-      - name: Set up Kustomize
-        run: |-
-          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-          chmod u+x ./kustomize
-        working-directory: Code Executor/app
-
-      # Build docker image
-      - name: Build, Push, Deploy
-        run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Code Executor/app
-
+      # Build, Push and deploy the Docker images
+      - name: fix
+        run: kubectl apply -f '03 - code-executor-deployment.yml'
+        working-directory: kubernetes
 
