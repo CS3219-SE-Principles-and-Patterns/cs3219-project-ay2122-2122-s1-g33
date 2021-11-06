@@ -26,6 +26,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # Make sure the @v0.5.3 matches the current version of the action
+      - uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@master
         with:
@@ -44,6 +49,8 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
+
+      # set ssh socket
 
       # Build and Push the Docker images
       - name: Code Executor Image
