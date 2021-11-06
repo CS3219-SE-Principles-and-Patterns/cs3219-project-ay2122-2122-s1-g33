@@ -41,12 +41,6 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
-      # Kubernetes env var
-      - name: Set up Kubernetes env var
-        run: |-
-          kubectl create secret generic prod ${{ secrets.PRODUCTION }}
-          kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SERVER_CRT }} --key=${{ secrets.SERVER_KEY }}
-
       # Build, Push and deploy the Docker images
       - name: Code Executor Image
         run: |-
