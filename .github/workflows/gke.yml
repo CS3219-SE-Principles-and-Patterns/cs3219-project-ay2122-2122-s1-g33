@@ -33,17 +33,17 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           service_account_email: ${{ secrets.ACCOUNT_EMAIL }}
 
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@main
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
-
-      # Configure Docker to use the gcloud command-line tool as a credential
-      # helper for authentication
-      - run: |-
-          gcloud --quiet auth configure-docker
 
       # Build and Push the Docker images
       - name: Code Executor Image
