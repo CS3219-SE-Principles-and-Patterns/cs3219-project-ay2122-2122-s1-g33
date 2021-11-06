@@ -46,42 +46,39 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
-      # Build and Push the Docker images
+      # Set up kustomize
+      - name: Set up Kustomize
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+
+      # Build, Push and deploy the Docker images
       - name: Code Executor Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Code Executor/app
 
       - name: Reverse Proxy Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Code Executor/nginx-docker
 
       - name: Docs Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Docs
 
       - name: Frontend Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Frontend
 
       - name: Sessions Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
         working-directory: Sessions
-
-      # Deploy to GCP
-      - name: Deploy
-        run: |-
-          kubectl create secret generic prod ${{ secrets.PRODUCTION }}
-          kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
-          chmod +x deploy.sh
-          sudo ./deploy.sh
-        working-directory: kubernetes
