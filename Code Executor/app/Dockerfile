@@ -4,7 +4,7 @@ FROM nikolaik/python-nodejs:python3.10-nodejs17-slim
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 
 RUN npm ci
 
