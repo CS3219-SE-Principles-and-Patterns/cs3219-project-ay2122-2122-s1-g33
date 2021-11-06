@@ -14,7 +14,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: peer-program-cluster-1    # Add your cluster name here.
   GKE_ZONE: asia-southeast1-b   # Add your cluster zone here.
-  DEPLOYMENT_NAME: gke-peerprogram # Add your deployment name here.
+  DEPLOYMENT_NAME: code-executor # Add your deployment name here.
 
 jobs:
   setup-build-publish-deploy:
@@ -53,35 +53,11 @@ jobs:
           sudo ./build.sh
         working-directory: Code Executor/app
 
-      - name: Reverse Proxy Image
-        run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Code Executor/nginx-docker
-
-      - name: Docs Image
-        run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Docs
-
-      - name: Frontend Image
-        run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Frontend
-
-      - name: Sessions Image
-        run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Sessions
-
       # Deploy to GCP
       - name: Deploy
         run: |-
           kubectl create secret generic prod ${{ env.PRODUCTION }}
           kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
-          chmod +x deploy.sh
-          sudo ./deploy.sh
+          kubectl apply -f '01 - docs-deployment.yml'
+          kubectl apply -f '02 - docs-service.yml'
         working-directory: kubernetes
