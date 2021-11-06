@@ -12,8 +12,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: peer-program-cluster-2    # Add your cluster name here.
-  GKE_ZONE: asia-southeast1-a   # Add your cluster zone here.
+  GKE_CLUSTER: peer-program-cluster-1    # Add your cluster name here.
+  GKE_ZONE: asia-southeast1  # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-peerprogram # Add your deployment name here.
 
 jobs:
@@ -42,8 +42,8 @@ jobs:
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@main
         with:
-          cluster_name: peer-program-cluster-2
-          location: asia-southeast1-a
+          cluster_name: peer-program-cluster-1
+          location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       # Build and Push the Docker images
