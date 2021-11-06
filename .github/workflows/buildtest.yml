@@ -1,12 +1,12 @@
-name: Build app
+name: Build
 on:
   pull_request:
     branches:
       - main
 
 jobs:
-  build-test:
-    name: Build test
+  build:
+    name: Build
     runs-on: ubuntu-18.04
 
     steps:
@@ -14,21 +14,21 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Code Executor
-        run: docker build
+        run: docker build .
         working-directory: Code Executor/app
 
       - name: Build nginx
-        run: docker build
+        run: docker build .
         working-directory: Code Executor/nginx-docker
 
       - name: Build Docs
-        run: docker build
+        run: docker build .
         working-directory: Docs
 
       - name: Build Frontend
-        run: docker build
+        run: docker build .
         working-directory: Frontend
 
       - name: Build Sessions
-        run: docker build
+        run: docker build .
         working-directory: Sessions
