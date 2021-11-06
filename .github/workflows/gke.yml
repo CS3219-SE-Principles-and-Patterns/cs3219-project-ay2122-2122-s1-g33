@@ -34,8 +34,10 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      # authenticate docker
-      - run: docker login -u _json_key -p ${{ secrets.GKE_SA_KEY }} https://asia.gcr.io
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          sudo gcloud --quiet auth configure-docker
 
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@main
