@@ -16,44 +16,30 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
+    env:
+      VERSION: $(git describe --dirty --always)
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
         with:
-          project_id: ${{ secrets.GKE_PROJECT }}
           service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      - name: Use gcloud CLI
-        run: gcloud info
-
-      # Configure Docker to use the gcloud command-line tool as a credential
-      # helper for authentication
-      - run: |-
-          gcloud --quiet auth configure-docker
-
-      # Get the GKE credentials so we can deploy to the cluster
-      - uses: google-github-actions/get-gke-credentials@main
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: asia-southeast1
-          credentials: ${{ secrets.GKE_SA_KEY }}
-
-      # Build and Push the Docker images
-      - name: Code Executor Image
+      # Build docker image
+      - name: Image
         run: |-
-          chmod +x build.sh
-          sudo ./build.sh
-        working-directory: Code Executor/app
+          docker build -t asia.gcr.io/peerprogram/code-executor:$VERSION .
 
-      # Deploy to GCP
-      - name: Deploy
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |
+          gcloud auth configure-docker -q
+
+      # Push image to Google Container Registry
+      - name: Build
         run: |-
-          kubectl create secret generic prod ${{ secrets.PRODUCTION }}
-          kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
-          kubectl apply -f '01 - docs-deployment.yml'
-          kubectl apply -f '02 - docs-service.yml'
-        working-directory: kubernetes
+          docker push asia.gcr.io/peerprogram/code-executor:$VERSION
