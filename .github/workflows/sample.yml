@@ -47,33 +47,7 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       # Build, Push and deploy the Docker images
-      - name: Code Executor Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Code Executor/app
-
-      - name: Docs Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Docs
-
-      - name: Frontend Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Frontend
-
-      - name: Sessions Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Sessions
-
-      # run kubectl apply command for ingress and horizontal-pod
-      - name: kubectl apply
-        run: |-
-          kubectl apply -f '09 - ingress.yml'
-          kubectl apply -f '10 - code-executor-horizontal-pod-autoscaler.yml'
+      - name: fix
+        run: kubectl apply -f '03 - code-executor-deployment.yml'
         working-directory: kubernetes
+
