@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # latest yarn
 RUN npm i -g --force yarn serve
 
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 
 RUN yarn --frozen-lockfile
 
