@@ -15,8 +15,6 @@ uri="asia.gcr.io/peerprogram/code-executor:$VERSION"
 DOCKER_BUILDKIT=1 docker build \
 	-t "$uri" .
 
-gcloud auth configure-docker -q
-
-docker push "$uri"
+sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"
