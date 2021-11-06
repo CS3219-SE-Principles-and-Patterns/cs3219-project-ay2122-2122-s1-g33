@@ -53,12 +53,6 @@ jobs:
           sudo ./build_deploy.sh
         working-directory: Code Executor/app
 
-      - name: Reverse Proxy Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Code Executor/nginx-docker
-
       - name: Docs Image
         run: |-
           chmod +x build_deploy.sh
