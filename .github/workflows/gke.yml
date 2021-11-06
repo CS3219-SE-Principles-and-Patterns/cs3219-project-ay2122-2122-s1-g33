@@ -47,30 +47,29 @@ jobs:
 
       # Build and Push the Docker images
       - name: Code Executor Image
-        run: |-
-          cd Code Executor/app
-          ./build.sh
+        run: ./build.sh
+        working-directory: Code Executor/app
+
       - name: Reverse Proxy Image
-        run: |-
-          cd Code Executor/nginx-docker
-          ./build.sh
+        run: ./build.sh
+        working-directory: Code Executor/nginx-docker
+
       - name: Docs Image
-        run: |-
-          cd Docs
-          ./build.sh
+        run: ./build.sh
+        working-directory: Docs
+
       - name: Frontend Image
-        run: |-
-          cd Frontend
-          ./build.sh
+        run: ./build.sh
+        working-directory: Frontend
+
       - name: Sessions Image
-        run: |-
-          cd Sessions
-          ./build.sh
+        run: ./build.sh
+        working-directory: Sessions
 
       # Deploy to GCP
       - name: Deploy
         run: |-
           kubectl create secret generic prod ${{ env.PRODUCTION }}
           kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
-          cd kubernetes
           ./deploy.sh
+        working-directory: kubernetes
