@@ -18,9 +18,3 @@ DOCKER_BUILDKIT=1 docker build \
 sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"
-
-# Deploy the Docker image to the GKE cluster
-sudo ./kustomize edit set image "$uri"
-sudo ./kustomize build . | kubectl apply -f -
-kubectl rollout status deployment/code-executor
-kubectl get services -o wide
