@@ -30,8 +30,9 @@ jobs:
       - uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GKE_SA_KEY }}
-          project_id: ${{ secrets.GKE_PROJECT }}
           service_account_email: ${{ secrets.ACCOUNT_EMAIL }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          export_default_credentials: true
 
       # Configure Docker to use the gcloud command-line tool as a credential
       # helper for authentication
