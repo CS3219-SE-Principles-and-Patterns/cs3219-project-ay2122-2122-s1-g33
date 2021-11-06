@@ -41,6 +41,11 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
+      # Check secrets
+      - name: Check kubectl secrets
+        run: |-
+          kubectl get secrets
+
       # Build, Push and deploy the Docker images
       - name: Code Executor Image
         run: |-
