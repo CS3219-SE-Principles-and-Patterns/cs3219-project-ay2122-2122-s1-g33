@@ -13,7 +13,6 @@ fi
 uri="asia.gcr.io/peerprogram/frontend:$VERSION"
 
 DOCKER_BUILDKIT=1 docker build \
-	--ssh default \
 	-t "$uri" .
 docker push "$uri"
 
