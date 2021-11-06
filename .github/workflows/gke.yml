@@ -1,0 +1,93 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build and Deploy to GKE
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: peer-program-cluster-1    # Add your cluster name here.
+  GKE_ZONE: asia-southeast1-b   # Add your cluster zone here.
+  DEPLOYMENT_NAME: gke-peerprogram # Add your deployment name here.
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Make sure the @v0.5.3 matches the current version of the action
+      - uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_email: ${{ secrets.ACCOUNT_EMAIL }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@main
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: asia-southeast1
+          credentials: ${{ secrets.GKE_SA_KEY }}
+
+      # set ssh socket
+
+      # Build and Push the Docker images
+      - name: Code Executor Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Code Executor/app
+
+      - name: Reverse Proxy Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Code Executor/nginx-docker
+
+      - name: Docs Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Docs
+
+      - name: Frontend Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Frontend
+
+      - name: Sessions Image
+        run: |-
+          chmod +x build.sh
+          sudo ./build.sh
+        working-directory: Sessions
+
+      # Deploy to GCP
+      - name: Deploy
+        run: |-
+          kubectl create secret generic prod ${{ env.PRODUCTION }}
+          kubectl create secret tls onlyduh-tls-secrets --cert ${{ secrets.SECRET_CRT }} --key=${{ secrets.SECRET_KEY }}
+          chmod +x deploy.sh
+          sudo ./deploy.sh
+        working-directory: kubernetes
