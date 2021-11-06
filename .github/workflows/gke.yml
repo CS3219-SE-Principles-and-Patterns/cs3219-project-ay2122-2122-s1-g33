@@ -17,7 +17,7 @@ jobs:
     environment: production
 
     env:
-      HASH: $(git rev-parse --short "$GITHUB_SHA")
+      HASH: $(git rev-parse --short "$VERSION")
 
 
     steps:
@@ -34,7 +34,8 @@ jobs:
       # Build docker image
       - name: Image
         run: |-
-          docker build -t "asia.gcr.io/peerprogram/code-executor:$GITHUB_SHA" .
+          docker build -t "asia.gcr.io/peerprogram/code-executor:$VERSION" .
+        working-directory: Code Executor/app
 
       # Configure docker to use the gcloud command-line tool as a credential helper
       - run: |
@@ -43,4 +44,5 @@ jobs:
       # Push image to Google Container Registry
       - name: Build
         run: |-
-          docker push asia.gcr.io/peerprogram/code-executor:$VERSION
+          docker push "asia.gcr.io/peerprogram/code-executor:$VERSION"
+        working-directory: Code Executor/app
