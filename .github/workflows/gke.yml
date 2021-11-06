@@ -35,7 +35,7 @@ jobs:
           export_default_credentials: true
 
       # authenticate docker
-      - run: docker login -u _json_key -p "${{ secrets.GKE_SA_KEY }}" https://asia.gcr.io
+      - run: docker login -u _json_key -p ${{ secrets.GKE_SA_KEY }} https://asia.gcr.io
 
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@main
