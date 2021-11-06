@@ -34,13 +34,8 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      # download standalone credential helper
-      - run: |-
-          curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.1.0/docker-credential-gcr_linux_amd64-2.1.0.tar.gz" \
-          | tar xz --to-stdout ./docker-credential-gcr \
-          > /usr/local/bin/docker-credential-gcr && chmod +x /usr/local/bin/docker-credential-gcr
-
-      - run: docker-credential-gcr configure-docker
+      # authenticate docker
+      - run: cat ${{ secrets.GKE_SA_KEY }} | docker login -u _json_key --password-stdin https://asia.gcr.io
 
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@main
