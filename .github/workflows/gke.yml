@@ -26,11 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Make sure the @v0.5.3 matches the current version of the action
-      - uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@master
         with:
