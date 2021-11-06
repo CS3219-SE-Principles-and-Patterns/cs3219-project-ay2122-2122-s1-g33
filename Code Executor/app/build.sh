@@ -19,4 +19,5 @@ sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"
 
+gcloud container clusters get-credentials peer-program-cluster-1
 kubectl set image deployment/code-executor code-executor="$uri"
