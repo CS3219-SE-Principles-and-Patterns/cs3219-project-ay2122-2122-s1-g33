@@ -6,7 +6,7 @@
 name: Build and Deploy to GKE
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
