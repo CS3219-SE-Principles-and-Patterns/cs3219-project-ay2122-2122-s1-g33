@@ -19,7 +19,7 @@ env:
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
-    runs-on: macos-latest
+    runs-on: ubuntu-18.04
     environment: production
 
     steps:
