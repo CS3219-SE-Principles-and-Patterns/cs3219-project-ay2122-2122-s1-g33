@@ -47,26 +47,26 @@ jobs:
           kubectl get secrets
 
       # Build, Push and deploy the Docker images
-      - name: Code Executor Image
-        run: |-
-          chmod +x build_deploy.sh
-          sudo ./build_deploy.sh
-        working-directory: Code Executor/app
-
       - name: Docs Image
         run: |-
           chmod +x build_deploy.sh
           sudo ./build_deploy.sh
         working-directory: Docs
 
-      - name: Frontend Image
+      - name: Code Executor Image
         run: |-
           chmod +x build_deploy.sh
           sudo ./build_deploy.sh
-        working-directory: Frontend
+        working-directory: Code Executor/app
 
       - name: Sessions Image
         run: |-
           chmod +x build_deploy.sh
           sudo ./build_deploy.sh
         working-directory: Sessions
+
+      - name: Frontend Image
+        run: |-
+          chmod +x build_deploy.sh
+          sudo ./build_deploy.sh
+        working-directory: Frontend
