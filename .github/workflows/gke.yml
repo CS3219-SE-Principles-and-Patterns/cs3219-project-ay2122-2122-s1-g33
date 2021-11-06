@@ -20,24 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Setup gcloud CLI
-      - uses: google-github-actions/setup-gcloud@master
-        with:
-          service_account_key: ${{ secrets.GKE_SA_KEY }}
-          service_account_email: ${{ secrets.ACCOUNT_EMAIL }}
-          project_id: ${{ secrets.GKE_PROJECT }}
+      # Setup gcloud auth activate-service-account
+      - name: auth service account
+      - run: gcloud auth activate-service-account ${{ secrets.ACCOUNT_EMAIL }} --key-file ${{ secrets.GKE_SA_KEY }}
 
       # Configure Docker to use the gcloud command-line tool as a credential
       # helper for authentication
       - run: |-
           gcloud --quiet auth configure-docker
-
-      # Get the GKE credentials so we can deploy to the cluster
-      - uses: google-github-actions/get-gke-credentials@main
-        with:
-          cluster_name: peer-program-cluster-1
-          location: asia-southeast1
-          credentials: ${{ secrets.GKE_SA_KEY }}
 
       # Build and Push the Docker images
       - name: Code Executor Image
