@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
       - name: code-executor
-        image: asia.gcr.io/peerprogram/code-executor
-        imagePullPolicy: Always
+        image: asia.gcr.io/peerprogram/code-executor:9500f94-dirty-YYBF2GV3
         ports:
         - containerPort: 8080
         envFrom:

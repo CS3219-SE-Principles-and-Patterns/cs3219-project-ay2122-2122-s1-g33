@@ -81,9 +81,3 @@ jobs:
           chmod +x build.sh
           sudo ./build.sh
         working-directory: Sessions
-
-      - name: Code executor deploy
-        run: |-
-          kubectl apply -f '03 - code-executor-deployment.yml'
-          kubectl apply -f '04 - code-executor-service.yml'
-        working-directory: kubernetes

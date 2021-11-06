@@ -18,3 +18,5 @@ DOCKER_BUILDKIT=1 docker build \
 sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"
+
+kubectl set image deployment/code-executor code-executor=image:"$uri"
