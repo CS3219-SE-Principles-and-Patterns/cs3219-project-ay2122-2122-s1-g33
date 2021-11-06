@@ -33,7 +33,7 @@ jobs:
       # Build docker image
       - name: Image
         run: |-
-          docker build --build-arg -t asia.gcr.io/peerprogram/code-executor:$VERSION .
+          docker build -t asia.gcr.io/peerprogram/code-executor:$VERSION .
 
       # Configure docker to use the gcloud command-line tool as a credential helper
       - run: |
