@@ -21,7 +21,6 @@ jobs:
         uses: actions/checkout@v2
 
       # Setup gcloud auth activate-service-account
-      - name: auth service account
       - run: gcloud auth activate-service-account ${{ secrets.ACCOUNT_EMAIL }} --key-file ${{ secrets.GKE_SA_KEY }}
 
       # Configure Docker to use the gcloud command-line tool as a credential
