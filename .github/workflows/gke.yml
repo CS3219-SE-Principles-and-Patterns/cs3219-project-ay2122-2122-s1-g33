@@ -1,7 +1,7 @@
 name: Build and Deploy to GKE
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -41,6 +41,11 @@ jobs:
           location: asia-southeast1
           credentials: ${{ secrets.GKE_SA_KEY }}
 
+      # Check secrets
+      - name: Check kubectl secrets
+        run: |-
+          kubectl get secrets
+
       # Build, Push and deploy the Docker images
       - name: Code Executor Image
         run: |-
@@ -65,10 +70,3 @@ jobs:
           chmod +x build_deploy.sh
           sudo ./build_deploy.sh
         working-directory: Sessions
-
-      # run kubectl apply command for ingress and horizontal-pod
-      - name: kubectl apply
-        run: |-
-          kubectl apply -f '09 - ingress.yml'
-          kubectl apply -f '10 - code-executor-horizontal-pod-autoscaler.yml'
-        working-directory: kubernetes
