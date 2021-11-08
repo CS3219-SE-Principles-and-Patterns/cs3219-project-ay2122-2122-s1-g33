@@ -8,8 +8,21 @@ spec:
   tls:
   - hosts:
     - onlyduh.com
+    - docs.onlyduh.com
     secretName: onlyduh-tls-secrets
   rules:
+  - host: docs.onlyduh.com
+    http:
+      paths:
+      # - pathType: Prefix
+      #   path: /
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: docs-service
+            port: 
+              number: 80
   - host: onlyduh.com
     http:
       paths:
