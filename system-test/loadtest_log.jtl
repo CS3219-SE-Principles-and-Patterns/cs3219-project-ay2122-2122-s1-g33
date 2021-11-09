@@ -1,0 +1,11 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1636481060353,36,HTTP Request,200,OK,Thread Group 1-1,text,true,,2087,116,1,1,http://localhost:3000/,33,0,24
+1636481070247,1,HTTP Request,200,OK,Thread Group 1-2,text,true,,2087,116,1,1,http://localhost:3000/,1,0,0
+1636481080240,4,HTTP Request,200,OK,Thread Group 1-3,text,true,,2087,116,1,1,http://localhost:3000/,3,0,2
+1636481090240,2,HTTP Request,200,OK,Thread Group 1-4,text,true,,2087,116,1,1,http://localhost:3000/,2,0,1
+1636481100239,3,HTTP Request,200,OK,Thread Group 1-5,text,true,,2087,116,1,1,http://localhost:3000/,3,0,2
+1636481110242,3,HTTP Request,200,OK,Thread Group 1-6,text,true,,2087,116,1,1,http://localhost:3000/,3,0,1
+1636481120238,2,HTTP Request,200,OK,Thread Group 1-7,text,true,,2087,116,1,1,http://localhost:3000/,2,0,1
+1636481130241,4,HTTP Request,200,OK,Thread Group 1-8,text,true,,2087,116,1,1,http://localhost:3000/,4,0,3
+1636481140240,3,HTTP Request,200,OK,Thread Group 1-9,text,true,,2087,116,1,1,http://localhost:3000/,3,0,1
+1636481150242,2,HTTP Request,200,OK,Thread Group 1-10,text,true,,2087,116,1,1,http://localhost:3000/,2,0,1
