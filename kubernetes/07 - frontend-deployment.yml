@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: asia.gcr.io/peerprogram/frontend:695e13c-dirty-LNLQUTZS
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - secretRef:
+              name: prod
+        # env:
+          # - name: REACT_APP_AUTH0_DOMAIN
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: prod
+          #       key: REACT_APP_AUTH0_DOMAIN
+          # - name: REACT_APP_AUTH0_CLIENT_ID
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: prod
+          #       key: REACT_APP_AUTH0_CLIENT_ID
+          # - name: REACT_APP_DOCS_SERVER_URL
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: prod
+          #       key: REACT_APP_DOCS_SERVER_URL
+          # - name: REACT_APP_SESSIONS_SERVER_URL
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: prod
+          #       key: REACT_APP_SESSIONS_SERVER_URL
+          # - name: REACT_APP_WEBSITE_URL
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: prod
+          #       key: REACT_APP_WEBSITE_URL

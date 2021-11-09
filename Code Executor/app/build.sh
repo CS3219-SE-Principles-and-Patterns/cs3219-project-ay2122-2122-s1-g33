@@ -13,8 +13,8 @@ fi
 uri="asia.gcr.io/peerprogram/code-executor:$VERSION"
 
 DOCKER_BUILDKIT=1 docker build \
-	--ssh default \
 	-t "$uri" .
-docker push "$uri"
+
+sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"

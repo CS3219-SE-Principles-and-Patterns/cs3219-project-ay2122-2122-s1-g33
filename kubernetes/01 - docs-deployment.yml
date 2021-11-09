@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: docs-deployment
+  name: docs
 spec:
   selector:
     matchLabels:
       app: docs
-  replicas: 2 # tells deployment to run 2 pods matching the template
+  replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
@@ -14,6 +14,9 @@ spec:
     spec:
       containers:
       - name: docs
-        image: asia.gcr.io/peerprogram/docs:d0ed7f0-dirty-OJIMVR2D
+        image: asia.gcr.io/peerprogram/docs:d3b4b05
         ports:
         - containerPort: 3003
+        envFrom:
+          - secretRef:
+              name: prod

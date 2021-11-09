@@ -36,3 +36,6 @@ To gain access to the gcp service you will need to authenticate using the servic
 ## Kubernetes setup
 
 1. Obtain `.env.production` from Marcus and place them in project root folder.
+1. If the secret alr exists, delete it `kubectl delete secret <secret-name>`
+1. Set the prod env values here: `kubectl create secret generic prod --from-env-file=.env.production`
+1. `kubectl create secret tls onlyduh-tls-secrets --cert 'tls-secrets/server.crt' --key='tls-secrets/server.key'`

@@ -44,7 +44,7 @@ const DocsList = ({
                     return {
                         title: doctitle,
                         id: docid,
-                        link: `http://localhost:3000/doc/${docid}`
+                        link: `http://${process.env.REACT_APP_WEBSITE_URL}/doc/${docid}`
                     }
                 });
 

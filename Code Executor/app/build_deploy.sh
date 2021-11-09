@@ -10,10 +10,14 @@ if [[ $VERSION == *-dirty ]]; then
   VERSION+="-$(head -c 5 < /dev/urandom | base32)"
 fi
 
-uri="asia.gcr.io/peerprogram/docs:$VERSION"
+uri="asia.gcr.io/peerprogram/code-executor:$VERSION"
 
 DOCKER_BUILDKIT=1 docker build \
 	-t "$uri" .
-docker push "$uri"
+
+sudo docker push "$uri"
 
 echo "Pushed new image to: $uri"
+
+gcloud container clusters get-credentials peer-program-cluster-1 --region=asia-southeast1
+kubectl set image deployment/code-executor code-executor="$uri"

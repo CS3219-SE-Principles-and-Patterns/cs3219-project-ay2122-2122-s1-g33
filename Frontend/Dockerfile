@@ -6,20 +6,17 @@ WORKDIR /usr/src/app
 # latest yarn
 RUN npm i -g --force yarn serve
 
-COPY . .
+COPY package.json yarn.lock ./
 
 RUN yarn --frozen-lockfile
 
 # Legacy docker settings cos node 17 breaks build
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
-RUN yarn build
-
-WORKDIR /usr/src/app/build
+COPY . .
 
 ENV NODE_ENV=production
 
-
 EXPOSE 3000
 
-CMD ["serve", "-l", "3000"]
+CMD ["yarn", "prod"]

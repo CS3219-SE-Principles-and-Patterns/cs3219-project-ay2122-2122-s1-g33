@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: reverse-proxy
-        image: 
+        image: asia.gcr.io/peerprogram/reverse-proxy:a797b6b-dirty-SHMI6DAD
         ports:
         - containerPort: 3000

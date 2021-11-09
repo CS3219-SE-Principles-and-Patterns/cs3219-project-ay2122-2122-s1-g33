@@ -1,19 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sessions-deployment
+  name: sessions
 spec:
   selector:
     matchLabels:
       app: sessions
-  replicas: 2 # tells deployment to run 2 pods matching the template
+  replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
         app: sessions
     spec:
       containers:
-      - name: docs
-        image: asia.gcr.io/peerprogram/sessions:d0ed7f0-dirty-JPK6VQ3Z
+      - name: sessions
+        image: asia.gcr.io/peerprogram/sessions:9aa9688
         ports:
         - containerPort: 6969
+        envFrom:
+          - secretRef:
+              name: prod

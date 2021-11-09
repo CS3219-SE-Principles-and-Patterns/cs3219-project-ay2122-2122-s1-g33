@@ -3,5 +3,5 @@
 __mocks__
 node_modules
 tests
-
+build/
 *.log
