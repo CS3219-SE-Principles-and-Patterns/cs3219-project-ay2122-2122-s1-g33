@@ -77,9 +77,14 @@ const patchDocText = (req, res) => {
     });
 };
 
+const getVersion = (req, res) => {
+    res.send({ version: "v1" });
+}
+
 module.exports = {
     createDoc,
     getDocByDocId,
     getDocsByUserId,
-    patchDocText
+    patchDocText,
+    getVersion
 }
