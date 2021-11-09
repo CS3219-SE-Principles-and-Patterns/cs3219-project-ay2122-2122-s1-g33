@@ -37,14 +37,14 @@ const runPython = (filePath) => {
         }, apiTimeout)
 
         let output = '';
+        let error = '';
 
         pyprog.stdout.on('data', function(data) {
             output += data.toString()
         });
     
         pyprog.stderr.on('data', (data) => {
-            let error = new Error(data.toString())
-            reject(error)
+            error += data.toString()
         });
 
         pyprog.on('exit', (code, signal) => {
@@ -54,7 +54,12 @@ const runPython = (filePath) => {
                 error.status = 504
                 reject(error)
             }
-            resolve(output)
+            if (error) {
+                reject(new Error(error))
+            } else {
+                resolve(output)
+            }
+            
         });
     
     })
