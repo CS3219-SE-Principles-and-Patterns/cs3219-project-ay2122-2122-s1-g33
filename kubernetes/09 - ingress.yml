@@ -2,8 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
-  # annotations:
-  #   nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "[https://onlyduh.com, https://*.onlyduh.com]"
 spec:
   tls:
   - hosts:
@@ -23,7 +26,7 @@ spec:
             name: docs-service
             port: 
               number: 80
-  - host: onlyduh.com
+  - host: "onlyduh.com"
     http:
       paths:
       # - pathType: Prefix

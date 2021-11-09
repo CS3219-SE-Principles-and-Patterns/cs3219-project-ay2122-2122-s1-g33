@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: docs
+  labels:
+    app: docs
 spec:
   selector:
     matchLabels:
@@ -14,7 +16,8 @@ spec:
     spec:
       containers:
       - name: docs
-        image: asia.gcr.io/peerprogram/docs:d3b4b05
+        # image: asia.gcr.io/peerprogram/docs:d3b4b05
+        image: asia.gcr.io/peerprogram/docs:8ff3898-dirty-GC3UUTU3
         ports:
         - containerPort: 3003
         envFrom:

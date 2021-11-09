@@ -1,0 +1,10 @@
+kubectl delete hpa/code-executor-hpa
+kubectl delete ingress/ingress
+kubectl delete service/frontend-service
+kubectl delete deployment/frontend
+kubectl delete service/sessions-service
+kubectl delete deployment/sessions
+kubectl delete service/code-executor-service
+kubectl delete deployment/code-executor
+kubectl delete service/docs-service
+kubectl delete deployment/docs
