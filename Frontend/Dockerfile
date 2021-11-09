@@ -19,4 +19,6 @@ ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD ["yarn", "prod"]
+RUN yarn build
+
+CMD ["serve", "build", "-l", "3000"]

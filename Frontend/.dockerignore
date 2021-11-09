@@ -1,4 +1,4 @@
-.env
+# .env
 .git
 __mocks__
 node_modules
