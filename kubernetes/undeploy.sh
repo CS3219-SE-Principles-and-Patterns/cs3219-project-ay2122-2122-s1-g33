@@ -1,10 +1,11 @@
-kubectl delete hpa/code-executor-hpa
-kubectl delete ingress/ingress
-kubectl delete service/frontend-service
-kubectl delete deployment/frontend
-kubectl delete service/sessions-service
-kubectl delete deployment/sessions
-kubectl delete service/code-executor-service
-kubectl delete deployment/code-executor
-kubectl delete service/docs-service
-kubectl delete deployment/docs
+kubectl delete -f '01 - docs-deployment.yml'
+kubectl delete -f '02 - docs-service.yml'
+kubectl delete -f '03 - code-executor-deployment.yml'
+kubectl delete -f '04 - code-executor-service.yml'
+kubectl delete -f '05 - sessions-redis-cache.yml'
+kubectl delete -f '06 - sessions-deployment.yml'
+kubectl delete -f '07 - sessions-service.yml'
+kubectl delete -f '08 - frontend-deployment.yml'
+kubectl delete -f '09 - frontend-service.yml'
+kubectl delete -f '10 - code-executor-horizontal-pod-autoscaler.yml'
+kubectl delete -f '11 - ingress.yml'

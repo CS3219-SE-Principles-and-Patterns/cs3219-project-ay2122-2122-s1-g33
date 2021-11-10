@@ -16,9 +16,18 @@ spec:
     spec:
       containers:
       - name: sessions
-        image: asia.gcr.io/peerprogram/sessions:9aa9688
+        image: asia.gcr.io/peerprogram/sessions:5b638ae-dirty-3HL5I5DR
         ports:
         - containerPort: 6969
         envFrom:
           - secretRef:
               name: prod
+        volumeMounts:
+        - name: tls-secrets
+          mountPath: "/etc/tls-secrets"
+          readOnly: true
+      volumes:
+      - name: tls-secrets
+        secret:
+          secretName: onlyduh-tls-secrets
+
