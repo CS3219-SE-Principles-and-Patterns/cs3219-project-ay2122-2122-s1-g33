@@ -11,7 +11,7 @@ app.use(
 
 // Cors
 const corsOptions = {
-  origin: ['https://*.onlyduh.com', 'https://onlyduh.com'],
+  origin: ['https://*.onlyduh.com', 'https://onlyduh.com', 'http://localhost:3000'],
   methods: ["GET","HEAD","PUT","PATCH","POST","DELETE","OPTIONS"],
   optionsSuccessStatus: 204
 }

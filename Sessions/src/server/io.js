@@ -11,9 +11,13 @@ const { getDocDataFromCache,
 } = require("../database/helpers/cacheDbCalls");
 const { executeCode } = require("../codeExecutor/codeExecutorService");
 
+const path = require('path');
+
+tls_key = process.env.NODE_ENV === "production" ? "/etc/tls-secrets/tls.key" : path.join(__dirname, '..', '..', '..', 'tls-secrets', 'server.key')
+tls_cert = process.env.NODE_ENV === "production" ? "/etc/tls-secrets/tls.crt" : path.join(__dirname, '..', '..', '..', 'tls-secrets', 'server.crt')
 const httpsServer = require("https").createServer({
-  key: fs.readFileSync("/etc/tls-secrets/tls.key"),
-  cert: fs.readFileSync("/etc/tls-secrets/tls.crt")
+  key: fs.readFileSync(tls_key),
+  cert: fs.readFileSync(tls_cert)
 }, app)
 // }, (req, res) => {
 //   res.writeHead(200, {
