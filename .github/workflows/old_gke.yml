@@ -1,6 +1,6 @@
 # This is an old version. Do not use.
 
-name: Build and Deploy to GKE
+name: Old Build and Deploy to GKE
 
 on:
   pull_request:
