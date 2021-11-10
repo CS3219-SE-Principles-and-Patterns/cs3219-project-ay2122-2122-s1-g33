@@ -11,8 +11,8 @@ const { getDocDataFromCache,
 const { executeCode } = require("../codeExecutor/codeExecutorService");
 
 const io = process.env.NODE_ENV === "production"
-  ? require("./io-server.dev")
-  : require("./io-server.prod")
+  ? require("./io-server.prod")
+  : require("./io-server.dev")
 
 io.on("connection", socket => {
   console.log("connection here")

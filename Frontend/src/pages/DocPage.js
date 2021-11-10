@@ -20,10 +20,7 @@ const DocPage = () => {
 
 
     useEffect(() => {
-        const s = io(process.env.REACT_APP_SESSIONS_SERVER_URL, {
-            'reconnection': true, 
-            transports: ['websocket']
-          });
+        const s = io(process.env.REACT_APP_SESSIONS_SERVER_URL);
         setSocket(s);
 
         s.emit("get-document", id);
