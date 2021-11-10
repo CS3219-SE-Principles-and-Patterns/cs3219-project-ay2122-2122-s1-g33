@@ -26,6 +26,18 @@ spec:
             name: docs-service
             port: 
               number: 80
+  - host: sessions.onlyduh.com
+    http:
+      paths:
+      # - pathType: Prefix
+      #   path: /
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: sessions-service
+            port: 
+              number: 80
   - host: "onlyduh.com"
     http:
       paths:

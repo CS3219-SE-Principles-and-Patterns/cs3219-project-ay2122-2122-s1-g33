@@ -6,7 +6,7 @@ async function getRedisClient() {
     return redisClient;
   }
   const client = createClient({
-    password: process.env.SESSIONS_CACHE_REDIS_PASSWORD,
+    // password: process.env.SESSIONS_CACHE_REDIS_PASSWORD,
     socket: {
       host: process.env.SESSIONS_CACHE_REDIS_DB_ADDR,
       port: process.env.SESSIONS_CACHE_REDIS_PORT      

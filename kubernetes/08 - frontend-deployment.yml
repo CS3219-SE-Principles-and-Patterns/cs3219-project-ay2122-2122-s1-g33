@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: asia.gcr.io/peerprogram/frontend:8ff3898-dirty-GE5UYMBJ
+        image: asia.gcr.io/peerprogram/frontend:5b638ae-dirty-UBMPD4QT
         ports:
         - containerPort: 3000
         envFrom:
