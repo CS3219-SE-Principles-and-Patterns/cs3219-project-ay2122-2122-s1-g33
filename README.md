@@ -18,13 +18,13 @@ Access the environment variables for the Docs, Frontend and Sessions services fr
 
 For each of the services, create a `.env` file in their directories (`/Docs`, `/Frontend` and `/Sessions`) and copy over the respective environment variables from the secret gist above.
 
-## 4 Download TLS Secrets
+## 4) Download TLS Secrets
 
 Go to this dropbox link: https://www.dropbox.com/sh/5xkh3k1z9i0iuq5/AAAiI9bv5ruRR1aHoDGgiso2a?dl=0
 
 Click "download" and unzip the downloaded zip file to get the `tls-secrets` folder. Move the `tls-secrets` folder to the repository root directory.
 
-## 4) Start the Code Executor service
+## 5) Start the Code Executor service
 
 Go to the directory: `/Code Executor/`
 
@@ -34,7 +34,7 @@ Run the command:
 docker-compose up
 ```
 
-## 5) Start the Frontend, Docs and Sessions services
+## 6) Start the Frontend, Docs and Sessions services
 
 Open 3 different terminals, navigate each terminal to the `/Docs`, `/Frontend` and `/Sessions` directories. Run the following command in each terminal:
 
@@ -42,6 +42,6 @@ Open 3 different terminals, navigate each terminal to the `/Docs`, `/Frontend` a
 npm start
 ```
 
-## 6) Access the Frontend
+## 7) Access the Frontend
 
  Open an internet browser of your choice and go to http://localhost:3000/ to access the frontend client.
