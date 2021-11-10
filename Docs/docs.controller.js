@@ -11,7 +11,7 @@ const createDoc = (req, res) => {
     Doc.create({ docId, docTitle, userId, docText }, (err, data) => {
         if(err) {
             res.status(500).json('Could not create doc');
-            // console.log(err.stack)
+            console.log(err.stack)
             
         } else {
             res.status(201).json({ docId, docTitle, userId, docText });
@@ -35,7 +35,7 @@ const getDocByDocId = (req, res) => {
     const docId = req.params.docId;
     Doc.getByDocId(docId, (err, data) => {
         if(err) {
-            // console.log(err.stack)
+            console.log(err.stack)
             res.status(500).json('Error retrieving doc from given doc id');
             return;
         } 

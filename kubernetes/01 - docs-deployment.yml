@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
       - name: docs
-        # image: asia.gcr.io/peerprogram/docs:d3b4b05
-        image: asia.gcr.io/peerprogram/docs:8ff3898-dirty-GC3UUTU3
+        image: asia.gcr.io/peerprogram/docs:0081af6-dirty-L6TO33AG
         ports:
         - containerPort: 3003
         envFrom:
