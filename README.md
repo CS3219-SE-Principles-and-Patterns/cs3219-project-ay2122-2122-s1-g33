@@ -1,41 +1,39 @@
-# PeerProgram
+# PeerProgram - Running On Local Instructions
 
-## Databases
+## 1) Clone the repository
 
-1. Redis DB
-1. Postgres
+git clone https://github.com/CS3219-SE-Principles-and-Patterns/cs3219-project-ay2122-2122-s1-g33.git 
 
-## Services
+## 2) Install the node module dependencies for each component
 
-This order is listed in order of how we start them up in kubernetes.
+Go into each of the directories: `/Docs`, `/Frontend` and `/Sessions`, and run the following command:
 
-1. Docs Service
-1. Code Executor Containers
-1. Code Executor NGINX Reverse Proxy
-1. Sessions Service
-1. Frontend
-1. Ingress
+```console
+npm install
+```
 
-## Authenticating yourself
+## 3) Use Environment Files
 
-To gain access to the gcp service you will need to authenticate using the service account json.
+The `.env.example` files in `/Docs`, `/Frontend` and `/Sessions` directories contain the format of the `.env` files required for each of these services. Simply rename each of these files to `.env` and fill in the values accordingly.
 
-1. `gcloud auth login`
-1. `gcloud components update` (warning: this can take very long)
-1. Obtain the `gcp-service-account.json` from Marcus and place the file in project root folder.
-1. `gcloud config set project PROJECT_ID`
-1. `gcloud auth activate-service-account <SERVICE_ACCOUNT_USERNAME>@<PROJECT_ID>.iam.gserviceaccount.com --key-file gcp-service-account.json` 
+## 4) Start the Code Executor service
 
-## Building Docker Images
+Go to the directory: `/Code Executor/`
 
-1. `gcloud auth configure-docker`
-1. Go into the service you want to build the docker image of
-1. `./build.sh`
-1. The URI should be returned after the build is done, which you will use in the service's kubernetes yml file.
+Run the command: 
 
-## Kubernetes setup
+```console
+docker-compose up
+```
 
-1. Obtain `.env.production` from Marcus and place them in project root folder.
-1. If the secret alr exists, delete it `kubectl delete secret <secret-name>`
-1. Set the prod env values here: `kubectl create secret generic prod --from-env-file=.env.production`
-1. `kubectl create secret tls onlyduh-tls-secrets --cert 'tls-secrets/server.crt' --key='tls-secrets/server.key'`
+## 5) Start the Frontend, Docs and Sessions services
+
+Open 3 different terminals, navigate each terminal to the `/Docs`, `/Frontend` and `/Sessions` directories. Run the following command in each terminal:
+
+```console
+npm start
+```
+
+## 6) Access the Frontend
+
+ Open an internet browser of your choice and go to http://localhost:3000/ to access the frontend client.
