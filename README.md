@@ -18,6 +18,12 @@ Access the environment variables for the Docs, Frontend and Sessions services fr
 
 For each of the services, create a `.env` file in their diretories (`/Docs`, `/Frontend` and `/Sessions`) and copy over the respective environment variables from the secret gist above.
 
+## 4 Download TLS Secrets
+
+Go to this dropbox link: https://www.dropbox.com/sh/5xkh3k1z9i0iuq5/AAAiI9bv5ruRR1aHoDGgiso2a?dl=0
+
+Click "download" and unzip the downloaded zip file to get the `tls-secrets` folder. Move the `tls-secrets` folder to the repository root directory.
+
 ## 4) Start the Code Executor service
 
 Go to the directory: `/Code Executor/`
