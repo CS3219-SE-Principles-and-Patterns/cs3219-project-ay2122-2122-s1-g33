@@ -14,7 +14,8 @@ npm install
 
 ## 3) Use Environment Files
 
-The `.env.example` files in `/Docs`, `/Frontend` and `/Sessions` directories contain the format of the `.env` files required for each of these services. Simply rename each of these files to `.env` and fill in the values accordingly.
+Access the environment variables for the Docs, Frontend and Sessions services from this secret gist: https://gist.github.com/Davidcwh/10de3c44ec111c2a59505cd436829659
+For each of the services, create a `.env` file in their diretories (`/Docs`, `/Frontend` and `/Sessions`) and copy over the respective environment variables in the secret gist above.
 
 ## 4) Start the Code Executor service
 
